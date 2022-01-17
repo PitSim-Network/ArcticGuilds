@@ -1,22 +1,46 @@
 package dev.kyro.arcticguilds.controllers.objects;
 
-import dev.kyro.arcticguilds.enums.GuildRank;
-import org.bukkit.configuration.ConfigurationSection;
+import dev.kyro.arcticapi.data.APlayer;
+import dev.kyro.arcticapi.data.APlayerData;
+import dev.kyro.arcticguilds.controllers.GuildManager;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.UUID;
 
 public class GuildMember {
-	public UUID uuid;
+	public UUID playerUUID;
 
 //	Savable data
-	public GuildRank rank;
+	public UUID guildUUID;
 
-	public GuildMember(UUID uuid, ConfigurationSection memberData) {
-		this.uuid = uuid;
+	public GuildMember(UUID playerUUID) {
+		this.playerUUID = playerUUID;
 
-		this.rank = GuildRank.getRank(memberData.getString("rank"));
+		save();
+
+		GuildManager.guildMemberList.add(this);
 	}
 
-	public void save(ConfigurationSection memberData) {
+	public GuildMember(UUID playerUUID, FileConfiguration playerData) {
+		this.playerUUID = playerUUID;
+
+		if(playerData.contains("guild")) this.guildUUID = UUID.fromString(playerData.getString("guild"));
+
+		GuildManager.guildMemberList.add(this);
+	}
+
+	public void leave() {
+		guildUUID = null;
+		save();
+	}
+
+//	This writes to the player's data, not the guild's
+	public void save() {
+		APlayer aPlayer = APlayerData.getPlayerData(playerUUID);
+		FileConfiguration playerData = aPlayer.playerData;
+
+		if(guildUUID == null) playerData.set("guild", null); else playerData.set("guild", guildUUID.toString());
+
+		aPlayer.save();
 	}
 }

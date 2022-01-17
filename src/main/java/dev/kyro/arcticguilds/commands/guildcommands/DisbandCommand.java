@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CreateCommand extends ACommand {
-	public CreateCommand(AMultiCommand base, String executor) {
+public class DisbandCommand extends ACommand {
+	public DisbandCommand(AMultiCommand base, String executor) {
 		super(base, executor);
 	}
 
@@ -21,20 +21,17 @@ public class CreateCommand extends ACommand {
 		if(!(sender instanceof Player)) return;
 		Player player = (Player) sender;
 
-		Guild preGuild = GuildManager.getGuild(player);
-		if(preGuild != null) {
-			AOutput.error(player, "You are already in a guild");
+		Guild guild = GuildManager.getGuild(player);
+		if(guild == null) {
+			AOutput.error(player, "You are not in a guild");
+			return;
+		} else if(!guild.ownerUUID.equals(player.getUniqueId())) {
+			AOutput.error(player, "you are not the owner of your guild");
 			return;
 		}
 
-		if(args.size() < 1) {
-			AOutput.error(player, "Usage: /guild create <name>");
-			return;
-		}
-		String name = args.get(0);
-
-		Guild guild = new Guild(player, name);
-		AOutput.send(player, "You have created a guild with the name: " + guild.name);
+		guild.disband();
+		AOutput.send(player, "You have disbanded your guild: " + guild.name);
 	}
 
 	@Override

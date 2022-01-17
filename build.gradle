@@ -18,7 +18,8 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    compile 'com.github.ArcticDevelopment:ArcticAPI:430e44f16f'
+//    compile 'com.github.ArcticDevelopment:ArcticAPI:430e44f16f'
+    compile files('libs/ArcticAPI-1.0.0.jar')
 }
 
 shadowJar {

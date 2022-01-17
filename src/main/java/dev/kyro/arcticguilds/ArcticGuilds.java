@@ -1,8 +1,8 @@
 package dev.kyro.arcticguilds;
 
 import dev.kyro.arcticapi.ArcticAPI;
-import dev.kyro.arcticguilds.commands.guildcommands.CreateCommand;
-import dev.kyro.arcticguilds.commands.guildcommands.GuildCommand;
+import dev.kyro.arcticapi.data.APlayerData;
+import dev.kyro.arcticguilds.commands.guildcommands.*;
 import dev.kyro.arcticguilds.controllers.ChatManager;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.PlayerManager;
@@ -17,6 +17,7 @@ public class ArcticGuilds extends JavaPlugin {
 
 		loadConfig();
 		ArcticAPI.configInit(this, "prefix", "error-prefix");
+		APlayerData.init();
 
 		registerCommands();
 		registerListeners();
@@ -28,7 +29,10 @@ public class ArcticGuilds extends JavaPlugin {
 
 	private void registerCommands() {
 		GuildCommand guildCommand = new GuildCommand("guild");
-		guildCommand.registerCommand(new CreateCommand("create"));
+		new InfoCommand(guildCommand, "info");
+		new CreateCommand(guildCommand, "create");
+		new DisbandCommand(guildCommand, "disband");
+		new KickCommand(guildCommand, "kick");
 	}
 
 	private void registerListeners() {

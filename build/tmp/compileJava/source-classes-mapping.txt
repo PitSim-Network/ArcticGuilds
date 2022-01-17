@@ -1,0 +1,36 @@
+dev/kyro/arcticguilds/controllers/ChatManager.java
+ dev.kyro.arcticguilds.controllers.ChatManager
+dev/kyro/arcticguilds/events/ArcticGuildEvent.java
+ dev.kyro.arcticguilds.events.ArcticGuildEvent
+dev/kyro/arcticguilds/misc/Constants.java
+ dev.kyro.arcticguilds.misc.Constants
+dev/kyro/arcticguilds/enums/GuildRank.java
+ dev.kyro.arcticguilds.enums.GuildRank
+dev/kyro/arcticguilds/controllers/objects/GuildMemberInfo.java
+ dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo
+dev/kyro/arcticguilds/commands/guildcommands/GuildCommand.java
+ dev.kyro.arcticguilds.commands.guildcommands.GuildCommand
+dev/kyro/arcticguilds/controllers/PlayerManager.java
+ dev.kyro.arcticguilds.controllers.PlayerManager
+dev/kyro/arcticguilds/events/GuildEvent.java
+ dev.kyro.arcticguilds.events.GuildEvent
+dev/kyro/arcticguilds/controllers/objects/GuildMember.java
+ dev.kyro.arcticguilds.controllers.objects.GuildMember
+dev/kyro/arcticguilds/commands/guildcommands/KickCommand.java
+ dev.kyro.arcticguilds.commands.guildcommands.KickCommand
+dev/kyro/arcticguilds/controllers/GuildManager.java
+ dev.kyro.arcticguilds.controllers.GuildManager
+dev/kyro/arcticguilds/events/GuildDisbandEvent.java
+ dev.kyro.arcticguilds.events.GuildDisbandEvent
+dev/kyro/arcticguilds/events/GuildCreateEvent.java
+ dev.kyro.arcticguilds.events.GuildCreateEvent
+dev/kyro/arcticguilds/commands/guildcommands/DisbandCommand.java
+ dev.kyro.arcticguilds.commands.guildcommands.DisbandCommand
+dev/kyro/arcticguilds/commands/guildcommands/CreateCommand.java
+ dev.kyro.arcticguilds.commands.guildcommands.CreateCommand
+dev/kyro/arcticguilds/commands/guildcommands/InfoCommand.java
+ dev.kyro.arcticguilds.commands.guildcommands.InfoCommand
+dev/kyro/arcticguilds/controllers/objects/Guild.java
+ dev.kyro.arcticguilds.controllers.objects.Guild
+dev/kyro/arcticguilds/ArcticGuilds.java
+ dev.kyro.arcticguilds.ArcticGuilds

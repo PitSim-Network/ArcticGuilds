@@ -3,9 +3,11 @@ package dev.kyro.arcticguilds.enums;
 public enum GuildRank {
 	OWNER("Owner", "owner"),
 	CO_OWNER("Co-Owner", "coowner"),
-	MODERATOR("Moderator", "moderator"),
+	OFFICER("Officer", "officer"),
 	MEMBER("Member", "member"),
 	RECRUIT("Recruit", "recruit");
+
+	public static GuildRank INITIAL_RANK = RECRUIT;
 
 	public String displayName;
 	public String refName;
@@ -27,5 +29,9 @@ public enum GuildRank {
 	public static GuildRank getRank(String refName) {
 		for(GuildRank value : values()) if(value.refName.equalsIgnoreCase(refName)) return value;
 		return null;
+	}
+
+	public boolean isAtLeast(GuildRank rank) {
+		return getPriority() >= rank.getPriority();
 	}
 }

@@ -1,0 +1,16 @@
+name: ArcticGuilds
+author: Kyro
+version: 1.0.0
+main: dev.kyro.arcticguilds.ArcticGuilds
+description: Guild system
+depend:
+  - Vault
+  - PlaceholderAPI
+#  - ProtocolLib
+  - Essentials
+commands:
+  guild:
+    description: Main guild command
+    aliases:
+      - g
+      - group
