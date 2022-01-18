@@ -1,6 +1,7 @@
 package dev.kyro.arcticguilds.controllers.objects;
 
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.enums.GuildRank;
 import dev.kyro.arcticguilds.events.GuildCreateEvent;
@@ -20,6 +21,7 @@ public class Guild {
 	public String name;
 	public UUID ownerUUID;
 
+	private long balance = 0;
 	public int reputation = 0;
 	public String tag;
 
@@ -46,6 +48,7 @@ public class Guild {
 		this.name = guildData.getString("name");
 		this.ownerUUID = UUID.fromString(guildData.getString("owner"));
 
+		this.balance = guildData.getLong("balance");
 		this.reputation = guildData.getInt("reputation");
 		this.tag = guildData.getString("tag");
 
@@ -74,6 +77,7 @@ public class Guild {
 		guildData.set("name", name);
 		guildData.set("owner", ownerUUID.toString());
 
+		guildData.set("balance", balance);
 		guildData.set("reputation", reputation);
 		guildData.set("tag", tag);
 
@@ -122,6 +126,26 @@ public class Guild {
 		GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
 		guildMember.guildUUID = uuid;
 		members.put(guildMember, new GuildMemberInfo());
+	}
+
+	public String getFormattedBalance() {
+		return ArcticGuilds.decimalFormat.format(balance);
+	}
+
+	public long getBalance() {
+		return balance;
+	}
+
+	public void deposit(int amount) {
+		balance += amount;
+		assert balance >= 0;
+		save();
+	}
+
+	public void withdraw(int amount) {
+		balance -= amount;
+		assert balance >= 0;
+		save();
 	}
 
 	public void diminish() {

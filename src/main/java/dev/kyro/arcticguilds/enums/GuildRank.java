@@ -23,7 +23,7 @@ public enum GuildRank {
 		for(int i = 0; i < values().length; i++) {
 			GuildRank rank = values()[i];
 			if(rank != this) continue;
-			return i;
+			return values().length - i - 1;
 		}
 		return -1;
 	}
