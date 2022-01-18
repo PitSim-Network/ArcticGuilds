@@ -1,20 +1,22 @@
 package dev.kyro.arcticguilds.enums;
 
 public enum GuildRank {
-	OWNER("Owner", "owner"),
-	CO_OWNER("Co-Owner", "coowner"),
-	OFFICER("Officer", "officer"),
-	MEMBER("Member", "member"),
-	RECRUIT("Recruit", "recruit");
+	OWNER("Owner", "owner", "***"),
+	CO_OWNER("Co-Owner", "coowner", "**"),
+	OFFICER("Officer", "officer", "*"),
+	MEMBER("Member", "member", "+"),
+	RECRUIT("Recruit", "recruit", "-");
 
 	public static GuildRank INITIAL_RANK = RECRUIT;
 
 	public String displayName;
 	public String refName;
+	public String prefix;
 
-	GuildRank(String displayName, String refName) {
+	GuildRank(String displayName, String refName, String prefix) {
 		this.displayName = displayName;
 		this.refName = refName;
+		this.prefix = prefix;
 	}
 
 	public int getPriority() {

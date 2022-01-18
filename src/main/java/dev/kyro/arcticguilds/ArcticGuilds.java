@@ -33,6 +33,10 @@ public class ArcticGuilds extends JavaPlugin {
 		new CreateCommand(guildCommand, "create");
 		new DisbandCommand(guildCommand, "disband");
 		new KickCommand(guildCommand, "kick");
+		new InviteCommand(guildCommand, "invite");
+		new UnInviteCommand(guildCommand, "uninvite");
+		new JoinCommand(guildCommand, "join");
+		new ChatCommand(guildCommand, "chat");
 	}
 
 	private void registerListeners() {

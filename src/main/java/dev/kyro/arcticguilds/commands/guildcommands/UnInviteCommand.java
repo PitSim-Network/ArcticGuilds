@@ -8,6 +8,7 @@ import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.misc.Constants;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,8 +16,8 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Map;
 
-public class KickCommand extends ACommand {
-	public KickCommand(AMultiCommand base, String executor) {
+public class UnInviteCommand extends ACommand {
+	public UnInviteCommand(AMultiCommand base, String executor) {
 		super(base, executor);
 	}
 
@@ -31,19 +32,36 @@ public class KickCommand extends ACommand {
 			return;
 		}
 
-		if(guild.ownerUUID.equals(player.getUniqueId())) {
-			AOutput.error(player, "You cannot leave your own guild");
-			return;
-		}
-
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.KICK_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
+		if(!entry.getValue().rank.isAtLeast(Constants.INVITE_PERMISSION)) {
+			AOutput.error(player, "You must be at least " + Constants.INVITE_PERMISSION.displayName + " to do this");
 			return;
 		}
 
-		entry.getKey().leave();
-		AOutput.send(player, "You have left the guild: " + guild.name);
+		if(args.size() < 1) {
+			AOutput.error(player, "Usage: /uninvite <player>");
+			return;
+		}
+
+		Player target = null;
+		for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+			if(!onlinePlayer.getName().equalsIgnoreCase(args.get(0))) continue;
+			target = onlinePlayer;
+			break;
+		}
+		if(target == null) {
+			AOutput.error(player, "Could not find that player");
+			return;
+		}
+
+		if(!guild.activeInvites.contains(target.getUniqueId())) {
+			AOutput.error(player, "There is no active invite to that player");
+			return;
+		}
+
+		guild.activeInvites.remove(target.getUniqueId());
+
+		AOutput.send(target, "&a&lGUILD! &7Your invite to the guild " + guild.name + " has been revoked");
 	}
 
 	@Override

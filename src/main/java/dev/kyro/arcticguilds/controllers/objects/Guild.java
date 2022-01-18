@@ -1,9 +1,11 @@
 package dev.kyro.arcticguilds.controllers.objects;
 
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.enums.GuildRank;
 import dev.kyro.arcticguilds.events.GuildCreateEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,11 +13,16 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class Guild {
+	public List<UUID> activeInvites = new ArrayList<>();
+
+//	Savable
 	public UUID uuid;
 	public String name;
+	public UUID ownerUUID;
+
+	public int reputation = 0;
 	public String tag;
 
-	public UUID ownerUUID;
 	public Map<GuildMember, GuildMemberInfo> members = new HashMap<>();
 
 	public Guild(Player player, String name) {
@@ -39,6 +46,7 @@ public class Guild {
 		this.name = guildData.getString("name");
 		this.ownerUUID = UUID.fromString(guildData.getString("owner"));
 
+		this.reputation = guildData.getInt("reputation");
 		this.tag = guildData.getString("tag");
 
 		ConfigurationSection allMemberData = guildData.getConfigurationSection("members");
@@ -66,6 +74,7 @@ public class Guild {
 		guildData.set("name", name);
 		guildData.set("owner", ownerUUID.toString());
 
+		guildData.set("reputation", reputation);
 		guildData.set("tag", tag);
 
 		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
@@ -77,18 +86,10 @@ public class Guild {
 		}
 	}
 
-	public GuildMemberInfo getMemberInfo(Player player) {
+	public Map.Entry<GuildMember, GuildMemberInfo> getMember(Player player) {
 		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
 			if(!entry.getKey().playerUUID.equals(player.getUniqueId())) continue;
-			return entry.getValue();
-		}
-		return null;
-	}
-
-	public GuildMember getMember(Player player) {
-		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
-			if(!entry.getKey().playerUUID.equals(player.getUniqueId())) continue;
-			return entry.getKey();
+			return entry;
 		}
 		return null;
 	}
@@ -100,6 +101,35 @@ public class Guild {
 			guildMembers.add(entry.getKey());
 		}
 		return guildMembers;
+	}
+
+	public void broadcast(String message) {
+		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
+			Player chatPlayer = Bukkit.getPlayer(entry.getKey().playerUUID);
+			if(chatPlayer == null) continue;
+			AOutput.color(chatPlayer, message);
+		}
+	}
+
+	public void chat(Player player, String message) {
+		Map.Entry<GuildMember, GuildMemberInfo> info = getMember(player);
+		message = ChatColor.stripColor(message);
+		message = "&8[&aGuild&8] &a" + info.getValue().rank.prefix + player.getName() + " &8>> &a" + message;
+		broadcast(message);
+	}
+
+	public void addMember(Player player) {
+		GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
+		guildMember.guildUUID = uuid;
+		members.put(guildMember, new GuildMemberInfo());
+	}
+
+	public void diminish() {
+		double reduction = reputation;
+		reduction = Math.pow(reduction, 1.4);
+		reduction *= 0.000_05;
+
+		reputation = (int) Math.max(reputation - reduction, 0);
 	}
 
 	public void disband() {

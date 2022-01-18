@@ -3,20 +3,17 @@ package dev.kyro.arcticguilds.commands.guildcommands;
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticguilds.controllers.ChatManager;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
-import dev.kyro.arcticguilds.controllers.objects.GuildMember;
-import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
-import dev.kyro.arcticguilds.misc.Constants;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Map;
 
-public class KickCommand extends ACommand {
-	public KickCommand(AMultiCommand base, String executor) {
+public class ChatCommand extends ACommand {
+	public ChatCommand(AMultiCommand base, String executor) {
 		super(base, executor);
 	}
 
@@ -31,19 +28,13 @@ public class KickCommand extends ACommand {
 			return;
 		}
 
-		if(guild.ownerUUID.equals(player.getUniqueId())) {
-			AOutput.error(player, "You cannot leave your own guild");
-			return;
+		if(ChatManager.guildChatPlayer.contains(player.getUniqueId())) {
+			ChatManager.guildChatPlayer.remove(player.getUniqueId());
+			AOutput.send(player, "&a&lGUILD! &7Guild chat &cdisabled");
+		} else {
+			ChatManager.guildChatPlayer.add(player.getUniqueId());
+			AOutput.send(player, "&a&lGUILD! &7Guild chat &aenabled");
 		}
-
-		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.KICK_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
-			return;
-		}
-
-		entry.getKey().leave();
-		AOutput.send(player, "You have left the guild: " + guild.name);
 	}
 
 	@Override
