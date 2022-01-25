@@ -3,12 +3,16 @@ package dev.kyro.arcticguilds.controllers;
 import dev.kyro.arcticapi.data.AData;
 import dev.kyro.arcticapi.data.APlayer;
 import dev.kyro.arcticapi.data.APlayerData;
+import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import dev.kyro.arcticguilds.inventories.BuffPanel;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +23,7 @@ public class GuildManager implements Listener {
 	public static List<Guild> guildList = new ArrayList<>();
 	public static List<GuildMember> guildMemberList = new ArrayList<>();
 	public static AData guildFile;
+	private static List<Guild> topGuilds = new ArrayList<>();
 
 	static {
 		guildFile = new AData("guilds", "", false);
@@ -33,9 +38,35 @@ public class GuildManager implements Listener {
 
 		for(String key : guildFile.getConfiguration().getKeys(false)) {
 			ConfigurationSection guildData = guildFile.getConfiguration().getConfigurationSection(key);
-			Guild guild = new Guild(key, guildData);
-			guildList.add(guild);
+			new Guild(key, guildData);
 		}
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				for(Guild guild : guildList) {
+					guild.diminish();
+					for(Map.Entry<GuildMember, GuildMemberInfo> entry : guild.members.entrySet()) {
+						UUID playerUUID = entry.getKey().playerUUID;
+						for(Player player : Bukkit.getOnlinePlayers()) {
+							if(!player.getUniqueId().equals(playerUUID)) continue;
+							if(player.getOpenInventory().getTopInventory().getHolder().getClass() != BuffPanel.class) continue;
+							BuffPanel buffPanel = (BuffPanel) player.getOpenInventory().getTopInventory().getHolder();
+							buffPanel.setInventory();
+						}
+					}
+				}
+			}
+//		}.runTaskTimer(ArcticGuilds.INSTANCE, 17280, 17280);
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 100, 100);
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				sortGuilds();
+			}
+//		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 60);
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 100);
 	}
 
 	public static Guild getGuild(UUID guildUUID) {
@@ -59,5 +90,31 @@ public class GuildManager implements Listener {
 			return guildMember;
 		}
 		return new GuildMember(playerUUID);
+	}
+
+	public static void sortGuilds() {
+		topGuilds.clear();
+		input:
+		for(Guild guild : guildList) {
+			for(int i = 0; i < topGuilds.size(); i++) {
+				Guild topGuild = topGuilds.get(i);
+				if(topGuild.reputation >= guild.reputation) continue;
+				topGuilds.add(i, guild);
+				continue input;
+			}
+			topGuilds.add(guild);
+		}
+	}
+
+	public static List<Guild> getTopGuilds() {
+		return topGuilds;
+	}
+
+	public static int getRank(Guild guild) {
+		for(int i = 0; i < guildList.size(); i++) {
+			Guild testGuild = guildList.get(i);
+			if(testGuild == guild) return i;
+		}
+		return -1;
 	}
 }

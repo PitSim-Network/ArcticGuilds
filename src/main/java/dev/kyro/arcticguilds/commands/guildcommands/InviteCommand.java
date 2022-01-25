@@ -5,6 +5,7 @@ import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.GuildManager;
+import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
@@ -71,18 +72,25 @@ public class InviteCommand extends ACommand {
 			return;
 		}
 
-		if(cooldownList.contains(target.getUniqueId())) {
-			AOutput.error(player, "Please wait before trying to invite this player again");
-			return;
-		}
-		cooldownList.add(target.getUniqueId());
-		Player finalTarget = target;
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				cooldownList.remove(finalTarget.getUniqueId());
+		if(!PermissionManager.isAdmin(player)) {
+			if(guild.members.size() >= guild.getMaxMembers()) {
+				AOutput.error(player, "Your guild at its maximum size");
+				return;
 			}
-		}.runTaskLater(ArcticGuilds.INSTANCE, 20 * 60);
+
+			if(cooldownList.contains(target.getUniqueId())) {
+				AOutput.error(player, "Please wait before trying to invite this player again");
+				return;
+			}
+			cooldownList.add(target.getUniqueId());
+			Player finalTarget = target;
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					cooldownList.remove(finalTarget.getUniqueId());
+				}
+			}.runTaskLater(ArcticGuilds.INSTANCE, 20 * 60);
+		}
 
 		guild.activeInvites.add(target.getUniqueId());
 

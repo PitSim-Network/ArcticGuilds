@@ -7,9 +7,11 @@ import dev.kyro.arcticguilds.commands.guildcommands.*;
 import dev.kyro.arcticguilds.commands.guildcommands.bank.BalanceCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.bank.DepositCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.bank.WithdrawalCommand;
-import dev.kyro.arcticguilds.controllers.ChatManager;
-import dev.kyro.arcticguilds.controllers.GuildManager;
-import dev.kyro.arcticguilds.controllers.PlayerManager;
+import dev.kyro.arcticguilds.controllers.*;
+import dev.kyro.arcticguilds.guildbuffs.*;
+import dev.kyro.arcticguilds.guildupgrades.BankLimit;
+import dev.kyro.arcticguilds.guildupgrades.GuildSize;
+import dev.kyro.arcticguilds.guildupgrades.ReputationIncrease;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,6 +39,8 @@ public class ArcticGuilds extends JavaPlugin {
 		}
 
 		registerCommands();
+		registerBuffs();
+		registerUpgrades();
 		registerListeners();
 	}
 
@@ -50,7 +54,7 @@ public class ArcticGuilds extends JavaPlugin {
 		new CreateCommand(guildCommand, "create");
 		new DisbandCommand(guildCommand, "disband");
 		new ChatCommand(guildCommand, "chat");
-		new UpgradesCommand(guildCommand, "upgrades");
+		new MenuCommand(guildCommand, "menu");
 
 		new JoinCommand(guildCommand, "join");
 		new InviteCommand(guildCommand, "invite");
@@ -64,8 +68,26 @@ public class ArcticGuilds extends JavaPlugin {
 
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new ChatManager(), this);
+		getServer().getPluginManager().registerEvents(new BuffManager(), this);
+		getServer().getPluginManager().registerEvents(new UpgradeManager(), this);
 		getServer().getPluginManager().registerEvents(new GuildManager(), this);
 		getServer().getPluginManager().registerEvents(new PlayerManager(), this);
+		getServer().getPluginManager().registerEvents(new PermissionManager(), this);
+	}
+
+	private void registerBuffs() {
+		BuffManager.registerBuff(new DamageBuff());
+		BuffManager.registerBuff(new DefenceBuff());
+		BuffManager.registerBuff(new XPBuff());
+		BuffManager.registerBuff(new GoldBuff());
+		BuffManager.registerBuff(new DispersionBuff());
+		BuffManager.registerBuff(new RenownBuff());
+	}
+
+	private void registerUpgrades() {
+		UpgradeManager.registerUpgrade(new GuildSize());
+		UpgradeManager.registerUpgrade(new BankLimit());
+		UpgradeManager.registerUpgrade(new ReputationIncrease());
 	}
 
 	private void loadConfig() {

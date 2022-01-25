@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CreateCommand extends ACommand {
 	public CreateCommand(AMultiCommand base, String executor) {
@@ -31,7 +32,17 @@ public class CreateCommand extends ACommand {
 			AOutput.error(player, "Usage: /guild create <name>");
 			return;
 		}
+
 		String name = args.get(0);
+		if(name.length() > 16) {
+			AOutput.error(player, "Your guild's name cannot be longer than 16 characters");
+			return;
+		}
+		Pattern pattern = Pattern.compile("[^a-z0-9_#]", Pattern.CASE_INSENSITIVE);
+		if(pattern.matcher(name).find()) {
+			AOutput.error(player, "Names can only contain numbers, letters, underscores, and octothorpes");
+			return;
+		}
 
 		Guild guild = new Guild(player, name);
 		AOutput.send(player, "You have created a guild with the name: " + guild.name);

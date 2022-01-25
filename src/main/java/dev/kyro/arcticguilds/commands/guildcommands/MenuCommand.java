@@ -7,7 +7,7 @@ import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
-import dev.kyro.arcticguilds.inventories.UpgradesGUI;
+import dev.kyro.arcticguilds.inventories.MenuGUI;
 import dev.kyro.arcticguilds.misc.Constants;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,8 +16,8 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Map;
 
-public class UpgradesCommand extends ACommand {
-	public UpgradesCommand(AMultiCommand base, String executor) {
+public class MenuCommand extends ACommand {
+	public MenuCommand(AMultiCommand base, String executor) {
 		super(base, executor);
 	}
 
@@ -38,7 +38,7 @@ public class UpgradesCommand extends ACommand {
 			return;
 		}
 
-		new UpgradesGUI(player, guild).open();
+		new MenuGUI(player, guild).open();
 	}
 
 	@Override

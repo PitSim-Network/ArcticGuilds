@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
+import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -43,9 +44,17 @@ public class JoinCommand extends ACommand {
 			return;
 		}
 
-		if(!guild.activeInvites.contains(player.getUniqueId())) {
-			AOutput.error(player, "You do not have an invite to that guild");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!guild.activeInvites.contains(player.getUniqueId())) {
+				AOutput.error(player, "You do not have an invite to that guild");
+				return;
+			}
+			guild.activeInvites.remove(player.getUniqueId());
+
+			if(guild.members.size() >= guild.getMaxMembers()) {
+				AOutput.error(player, "That guild has reached its maximum amount of members");
+				return;
+			}
 		}
 
 		guild.broadcast("&a&lGUILD! &7" + player.getName() + " has joined the guild");
