@@ -40,7 +40,11 @@ public abstract class GuildUpgrade {
 		ALoreBuilder postLore = new ALoreBuilder();
 		postLore.addLore("");
 		if(level == maxLevel) {
-			postLore.addLore("&aMax tier unlocked!");
+			if(maxLevel == 1) {
+				postLore.addLore("&aUnlocked!");
+			} else {
+				postLore.addLore("&aMax tier unlocked!");
+			}
 		} else if(level == 0) {
 			postLore.addLore("&7Cost: &6" + ArcticGuilds.decimalFormat.format(getCost(level + 1)));
 			postLore.addLore("&eClick to purchase!");

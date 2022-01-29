@@ -22,7 +22,7 @@ public class XPBuff extends GuildBuff {
 		ALoreBuilder lore = new ALoreBuilder();
 		if(level != 0) {
 			lore.addLore("&7Tier: &a" + AUtil.toRoman(level), "");
-			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(guild, level).get(this);
+			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(level).get(this);
 			for(Map.Entry<SubBuff, Double> entry : buffMap.entrySet()) {
 				lore.addLore(chatColor + entry.getKey().getDisplayString(entry.getValue()));
 			}
@@ -37,8 +37,8 @@ public class XPBuff extends GuildBuff {
 
 	@Override
 	public void addBuffs() {
-		SubBuff xpSub = new SubBuff("&b+%amount%% XP &7from kills");
-		SubBuff maxXPSub = new SubBuff("&b+%amount%% max XP &7from kills");
+		SubBuff xpSub = new SubBuff("xp", "&b+%amount%% XP &7from kills");
+		SubBuff maxXPSub = new SubBuff("maxxp", "&b+%amount%% max XP &7from kills");
 
 		addSubBuff(1, xpSub, 1);
 		addSubBuff(1, maxXPSub, 1);

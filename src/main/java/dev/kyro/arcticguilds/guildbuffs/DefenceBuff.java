@@ -22,7 +22,7 @@ public class DefenceBuff extends GuildBuff {
 		ALoreBuilder lore = new ALoreBuilder();
 		if(level != 0) {
 			lore.addLore("&7Tier: &a" + AUtil.toRoman(level), "");
-			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(guild, level).get(this);
+			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(level).get(this);
 			for(Map.Entry<SubBuff, Double> entry : buffMap.entrySet()) {
 				lore.addLore(chatColor + entry.getKey().getDisplayString(entry.getValue()));
 			}
@@ -37,8 +37,8 @@ public class DefenceBuff extends GuildBuff {
 
 	@Override
 	public void addBuffs() {
-		SubBuff defenceSub = new SubBuff("&9-%amount%% &7damage");
-		SubBuff trueDefenceSub = new SubBuff("&b-%amount%\u2764 true damage");
+		SubBuff defenceSub = new SubBuff("defence", "&9-%amount%% &7damage");
+		SubBuff trueDefenceSub = new SubBuff("truedefence", "&b-%amount%\u2764 true damage");
 
 		addSubBuff(1, defenceSub, 1);
 		addSubBuff(2, defenceSub, 1);

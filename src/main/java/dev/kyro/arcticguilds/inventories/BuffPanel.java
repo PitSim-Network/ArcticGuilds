@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.builders.AItemStackBuilder;
 import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
+import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticapi.misc.AUtil;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.BuffManager;
@@ -56,7 +57,12 @@ public class BuffPanel extends AGUIPanel {
 			Sounds.RESET.play(player);
 		} else {
 			int buffLevel = menuGUI.guild.getLevel(buff);
+			int cost = buffLevel + buff.firstLevelCost - 1;
 			if(level - 1 == buffLevel) {
+				if(menuGUI.guild.getTotalBuffCost() + cost > menuGUI.guild.getRepPoints()) {
+					AOutput.error(player, "You do not have enough reputation points");
+					return;
+				}
 				menuGUI.guild.buffLevels.put(buff, buffLevel + 1);
 				menuGUI.guild.save();
 				menuGUI.guild.broadcast("&7Increased " + buff.displayName + " &7to level &a" + AUtil.toRoman(buffLevel + 1));

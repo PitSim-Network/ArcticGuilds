@@ -22,7 +22,7 @@ public class GoldBuff extends GuildBuff {
 		ALoreBuilder lore = new ALoreBuilder();
 		if(level != 0) {
 			lore.addLore("&7Tier: &a" + AUtil.toRoman(level), "");
-			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(guild, level).get(this);
+			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(level).get(this);
 			for(Map.Entry<SubBuff, Double> entry : buffMap.entrySet()) {
 				lore.addLore(chatColor + entry.getKey().getDisplayString(entry.getValue()));
 			}
@@ -37,7 +37,7 @@ public class GoldBuff extends GuildBuff {
 
 	@Override
 	public void addBuffs() {
-		SubBuff goldSub = new SubBuff("&6+%amount%% gold &7from kills");
+		SubBuff goldSub = new SubBuff("gold", "&6+%amount%% gold &7from kills");
 
 		addSubBuff(1, goldSub, 1);
 		addSubBuff(2, goldSub, 1);

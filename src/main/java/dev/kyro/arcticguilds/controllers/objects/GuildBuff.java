@@ -29,15 +29,18 @@ public abstract class GuildBuff {
 	public abstract void addBuffs();
 
 	public void addSubBuff(int level, SubBuff subBuff, double amount) {
+		if(!subBuffList.contains(subBuff)) subBuffList.add(subBuff);
 		subBuffMap.putIfAbsent(level, new LinkedHashMap<>());
 		subBuffMap.get(level).put(subBuff, amount);
 	}
 
 	public static class SubBuff {
+		public String refName;
 //		Use %amount% to designate where the amount should go
 		private final String displayString;
 
-		public SubBuff(String displayString) {
+		public SubBuff(String refName, String displayString) {
+			this.refName = refName;
 			this.displayString = displayString;
 		}
 
@@ -51,10 +54,12 @@ public abstract class GuildBuff {
 		Map<SubBuff, Double> buffMap = new LinkedHashMap<>();
 		for(SubBuff subBuff : subBuffList) buffMap.put(subBuff, 0.0);
 		int count = 0;
-		for(Map.Entry<SubBuff, Double> entry : buffMap.entrySet()) {
+		for(Map.Entry<Integer, Map<SubBuff, Double>> entry : subBuffMap.entrySet()) {
 			if(count++ == level) break;
-			double current = buffMap.get(entry.getKey());
-			buffMap.put(entry.getKey(), current + entry.getValue());
+			for(Map.Entry<SubBuff, Double> subEntry : entry.getValue().entrySet()) {
+				double current = buffMap.get(subEntry.getKey());
+				buffMap.put(subEntry.getKey(), current + subEntry.getValue());
+			}
 		}
 		return buffMap;
 	}

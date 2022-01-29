@@ -1,6 +1,5 @@
 package dev.kyro.arcticguilds.controllers;
 
-import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildBuff;
 import org.bukkit.event.Listener;
 
@@ -26,7 +25,7 @@ public class BuffManager implements Listener {
 		return buffList.get(index);
 	}
 
-	public static Map<GuildBuff, Map<GuildBuff.SubBuff, Double>> getAllBuffs(Guild guild, int level) {
+	public static Map<GuildBuff, Map<GuildBuff.SubBuff, Double>> getAllBuffs(int level) {
 		Map<GuildBuff, Map<GuildBuff.SubBuff, Double>> allBuffMap = new LinkedHashMap<>();
 		for(GuildBuff guildBuff : buffList) {
 			allBuffMap.put(guildBuff, guildBuff.getBuffs(level));

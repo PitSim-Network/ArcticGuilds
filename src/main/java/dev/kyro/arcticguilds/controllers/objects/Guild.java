@@ -17,6 +17,7 @@ import java.util.*;
 
 public class Guild {
 	public List<UUID> activeInvites = new ArrayList<>();
+	public int queuedReputation = 0;
 
 //	Savable
 	public UUID uuid;

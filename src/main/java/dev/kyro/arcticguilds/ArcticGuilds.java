@@ -9,9 +9,7 @@ import dev.kyro.arcticguilds.commands.guildcommands.bank.DepositCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.bank.WithdrawalCommand;
 import dev.kyro.arcticguilds.controllers.*;
 import dev.kyro.arcticguilds.guildbuffs.*;
-import dev.kyro.arcticguilds.guildupgrades.BankLimit;
-import dev.kyro.arcticguilds.guildupgrades.GuildSize;
-import dev.kyro.arcticguilds.guildupgrades.ReputationIncrease;
+import dev.kyro.arcticguilds.guildupgrades.*;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -80,7 +78,7 @@ public class ArcticGuilds extends JavaPlugin {
 		BuffManager.registerBuff(new DefenceBuff());
 		BuffManager.registerBuff(new XPBuff());
 		BuffManager.registerBuff(new GoldBuff());
-		BuffManager.registerBuff(new DispersionBuff());
+//		BuffManager.registerBuff(new DispersionBuff());
 		BuffManager.registerBuff(new RenownBuff());
 	}
 
@@ -88,6 +86,7 @@ public class ArcticGuilds extends JavaPlugin {
 		UpgradeManager.registerUpgrade(new GuildSize());
 		UpgradeManager.registerUpgrade(new BankLimit());
 		UpgradeManager.registerUpgrade(new ReputationIncrease());
+		UpgradeManager.registerUpgrade(new GuildBuffs());
 	}
 
 	private void loadConfig() {

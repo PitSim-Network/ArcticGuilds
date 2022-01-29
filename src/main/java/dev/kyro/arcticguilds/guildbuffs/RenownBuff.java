@@ -22,7 +22,7 @@ public class RenownBuff extends GuildBuff {
 		ALoreBuilder lore = new ALoreBuilder();
 		if(level != 0) {
 			lore.addLore("&7Tier: &a" + AUtil.toRoman(level), "");
-			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(guild, level).get(this);
+			Map<SubBuff, Double> buffMap = BuffManager.getAllBuffs(level).get(this);
 			for(Map.Entry<SubBuff, Double> entry : buffMap.entrySet()) {
 				lore.addLore(chatColor + entry.getKey().getDisplayString(entry.getValue()));
 			}
@@ -37,7 +37,7 @@ public class RenownBuff extends GuildBuff {
 
 	@Override
 	public void addBuffs() {
-		SubBuff renownSub = new SubBuff("&e+%amount%% &7more passive renown");
+		SubBuff renownSub = new SubBuff("renown", "&e+%amount%% &7more passive renown");
 
 		addSubBuff(1, renownSub, 12.5);
 		addSubBuff(2, renownSub, 12.5);
