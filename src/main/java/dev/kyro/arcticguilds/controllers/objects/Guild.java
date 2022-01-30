@@ -43,7 +43,7 @@ public class Guild {
 		for(GuildUpgrade upgrade : UpgradeManager.upgradeList) this.upgradeLevels.put(upgrade, 0);
 
 		GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
-		guildMember.guildUUID = uuid;
+		guildMember.setGuildUUID(uuid);
 		members.put(guildMember, new GuildMemberInfo(GuildRank.OWNER));
 
 		GuildManager.guildList.add(this);
@@ -141,7 +141,7 @@ public class Guild {
 
 	public void addMember(Player player) {
 		GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
-		guildMember.guildUUID = uuid;
+		guildMember.setGuildUUID(uuid);
 		members.put(guildMember, new GuildMemberInfo());
 	}
 
@@ -190,13 +190,17 @@ public class Guild {
 		return reputation / 1000;
 	}
 
-	public void addReputation(int amount) {
+	public void addReputationDirect(int amount) {
 		int previousPoints = getRepPoints();
 		reputation += amount;
 		if(previousPoints < getRepPoints()) {
 			broadcast("&a&lGUILD! &7+1 Reputation point");
 		}
 		save();
+	}
+
+	public void addReputation(int amount) {
+		queuedReputation += amount;
 	}
 
 	public int getTotalBuffCost() {

@@ -7,6 +7,7 @@ import dev.kyro.arcticapi.misc.AUtil;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.UpgradeManager;
 import dev.kyro.arcticguilds.controllers.objects.GuildUpgrade;
+import dev.kyro.arcticguilds.misc.Sounds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -53,18 +54,21 @@ public class UpgradePanel extends AGUIPanel {
 			}
 
 			long balance = menuGUI.guild.getBalance();
-			if(balance < upgrade.getCost(level + 1)) {
+			int cost = upgrade.getCost(level + 1);
+			if(balance < cost) {
 				AOutput.error(player, "Not enough gold in guild bank");
 				return;
 			}
 
+			menuGUI.guild.withdraw(cost);
 			menuGUI.guild.upgradeLevels.put(upgrade, level + 1);
 			menuGUI.guild.save();
 
-			getInventory().setItem(upgrade.slot, upgrade.getDisplayStack(menuGUI.guild, level));
+			getInventory().setItem(upgrade.slot, upgrade.getDisplayStack(menuGUI.guild, level + 1));
 			player.updateInventory();
 
-			menuGUI.guild.broadcast("&7Upgraded " + upgrade.displayName + " &7to level &a" + AUtil.toRoman(level + 1));
+			Sounds.UPGRADE.play(player);
+			menuGUI.guild.broadcast("&a&lGUILD! &7Upgraded " + upgrade.displayName + " &7to level &a" + AUtil.toRoman(level + 1));
 		}
 	}
 

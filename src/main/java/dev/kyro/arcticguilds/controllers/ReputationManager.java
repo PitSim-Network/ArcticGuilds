@@ -19,7 +19,7 @@ public class ReputationManager implements Listener {
 					GuildReputationEvent event = new GuildReputationEvent(guild, guild.queuedReputation);
 					Bukkit.getPluginManager().callEvent(event);
 
-					guild.addReputation(event.getTotalReputation());
+					guild.addReputationDirect(event.getTotalReputation());
 				}
 			}
 		}.runTaskTimer(ArcticGuilds.INSTANCE, 20 * 30, 20 * 60);

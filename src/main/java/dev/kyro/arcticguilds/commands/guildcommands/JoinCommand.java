@@ -6,6 +6,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
+import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,6 +27,14 @@ public class JoinCommand extends ACommand {
 		if(preGuild != null) {
 			AOutput.error(player, "You are already in a guild");
 			return;
+		}
+
+		if(!PermissionManager.isAdmin(player)) {
+			GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
+			if(guildMember.wasModifiedRecently()) {
+				AOutput.error(player, "You have changed guilds too recently. Please wait " + guildMember.getModifiedTimeRemaining());
+				return;
+			}
 		}
 
 		if(args.size() < 1) {

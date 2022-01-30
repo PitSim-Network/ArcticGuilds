@@ -48,15 +48,17 @@ public class ArcticGuilds extends JavaPlugin {
 
 	private void registerCommands() {
 		GuildCommand guildCommand = new GuildCommand("guild");
+		new HelpCommand(guildCommand, "help");
 		new InfoCommand(guildCommand, "info");
 		new CreateCommand(guildCommand, "create");
 		new DisbandCommand(guildCommand, "disband");
 		new ChatCommand(guildCommand, "chat");
 		new MenuCommand(guildCommand, "menu");
 
-		new JoinCommand(guildCommand, "join");
 		new InviteCommand(guildCommand, "invite");
 		new UnInviteCommand(guildCommand, "uninvite");
+		new JoinCommand(guildCommand, "join");
+		new LeaveCommand(guildCommand, "leave");
 		new KickCommand(guildCommand, "kick");
 
 		new BalanceCommand(guildCommand, "bal");

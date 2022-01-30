@@ -52,7 +52,7 @@ public class BuffPanel extends AGUIPanel {
 		if(isMain) {
 			menuGUI.guild.buffLevels.put(buff, 0);
 			menuGUI.guild.save();
-			menuGUI.guild.broadcast("&7Reset " + buff.displayName + " &7levels");
+			menuGUI.guild.broadcast("&a&lGUILD &7Reset " + buff.displayName + " &7levels");
 			setInventory();
 			Sounds.RESET.play(player);
 		} else {
@@ -65,7 +65,7 @@ public class BuffPanel extends AGUIPanel {
 				}
 				menuGUI.guild.buffLevels.put(buff, buffLevel + 1);
 				menuGUI.guild.save();
-				menuGUI.guild.broadcast("&7Increased " + buff.displayName + " &7to level &a" + AUtil.toRoman(buffLevel + 1));
+				menuGUI.guild.broadcast("&a&lGUILD! &7Increased " + buff.displayName + " &7to level &a" + AUtil.toRoman(buffLevel + 1));
 				setInventory();
 				Sounds.UPGRADE.play(player);
 			}

@@ -34,7 +34,7 @@ public class MenuPanel extends AGUIPanel {
 				.setSlots(Material.STAINED_GLASS_PANE, 7, 11);
 
 		ItemStack buffs = new AItemStackBuilder(Material.BEACON)
-				.setName("&bGuild Buffs")
+				.setName("&b&lGuild Buffs")
 				.setLore(new ALoreBuilder(
 
 				))
@@ -42,7 +42,7 @@ public class MenuPanel extends AGUIPanel {
 		getInventory().setItem(12, buffs);
 
 		ItemStack upgrades = new AItemStackBuilder(Material.ANVIL)
-				.setName("&2Guild Upgrades")
+				.setName("&2&lGuild Upgrades")
 				.setLore(new ALoreBuilder(
 
 				))
@@ -50,7 +50,7 @@ public class MenuPanel extends AGUIPanel {
 		getInventory().setItem(13, upgrades);
 
 		ItemStack shop = new AItemStackBuilder(Material.DOUBLE_PLANT)
-				.setName("&eGuild Shop")
+				.setName("&e&lGuild Shop")
 				.setLore(new ALoreBuilder(
 
 				))
@@ -58,7 +58,7 @@ public class MenuPanel extends AGUIPanel {
 		getInventory().setItem(14, shop);
 
 		ItemStack settings = new AItemStackBuilder(Material.REDSTONE_COMPARATOR)
-				.setName("&fGuild Settings")
+				.setName("&f&lGuild Settings")
 				.setLore(new ALoreBuilder(
 
 				))
@@ -127,13 +127,14 @@ public class MenuPanel extends AGUIPanel {
 		stats.setItemMeta(bannerMeta);
 		ChatColor chatColor = ColorConverter.getChatColor(dyeColor);
 		new AItemStackBuilder(stats)
-				.setName(chatColor + menuGUI.guild.name + " Information")
+				.setName(chatColor + "&l" + menuGUI.guild.name + " Information")
 				.setLore(new ALoreBuilder(
 						"&7Date Created: " + chatColor + dateFormat.format(menuGUI.guild.dateCreated),
 						"&7Owner: " + chatColor + Bukkit.getOfflinePlayer(menuGUI.guild.ownerUUID).getName(),
 						"&7Members: " + chatColor + menuGUI.guild.members.size(),
 						"&7Guild Rank: " + menuGUI.guild.getFormattedRank(),
 						"&7Reputation: " + chatColor + ArcticGuilds.decimalFormat.format(menuGUI.guild.reputation),
+						"&7Balance: &6" + menuGUI.guild.getFormattedBalance() + "g",
 						"",
 						"&7Click to change dye color"
 				));
