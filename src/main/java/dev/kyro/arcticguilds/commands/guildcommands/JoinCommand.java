@@ -7,11 +7,16 @@ import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
+import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class JoinCommand extends ACommand {
 	public JoinCommand(AMultiCommand base, String executor) {
@@ -49,6 +54,17 @@ public class JoinCommand extends ACommand {
 			break;
 		}
 		if(guild == null) {
+			guild:
+			for(Guild testGuild : GuildManager.guildList) {
+				for(Map.Entry<GuildMember, GuildMemberInfo> entry : testGuild.members.entrySet()) {
+					OfflinePlayer guildPlayer = Bukkit.getOfflinePlayer(entry.getKey().playerUUID);
+					if(!guildPlayer.getName().equalsIgnoreCase(args.get(0))) continue;
+					guild = testGuild;
+					break guild;
+				}
+			}
+		}
+		if(guild == null) {
 			AOutput.error(player, "Could not find a guild with that name");
 			return;
 		}
@@ -73,6 +89,11 @@ public class JoinCommand extends ACommand {
 
 	@Override
 	public List<String> getTabComplete(Player player, String current, List<String> args) {
-		return null;
+		List<String> tabComplete = new ArrayList<>();
+		for(Guild guild : GuildManager.guildList) {
+			if(!guild.activeInvites.contains(player.getUniqueId())) continue;
+			tabComplete.add(guild.name);
+		}
+		return tabComplete;
 	}
 }

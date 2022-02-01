@@ -7,6 +7,7 @@ import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import dev.kyro.arcticguilds.events.GuildReputationEvent;
 import dev.kyro.arcticguilds.inventories.BuffPanel;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -67,10 +68,25 @@ public class GuildManager implements Listener {
 			}
 //		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 60);
 		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 100);
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				for(Guild guild : GuildManager.guildList) {
+					if(guild.queuedReputation == 0) continue;
+
+					GuildReputationEvent event = new GuildReputationEvent(guild, guild.queuedReputation);
+					Bukkit.getPluginManager().callEvent(event);
+
+					guild.queuedReputation = 0;
+					guild.addReputationDirect(event.getTotalReputation());
+				}
+			}
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 10);
 	}
 
 	public static Guild getGuild(UUID guildUUID) {
-		for(Guild guild : guildList) if(guild.uuid == guildUUID) return guild;
+		for(Guild guild : guildList) if(guild.uuid.equals(guildUUID)) return guild;
 		return null;
 	}
 

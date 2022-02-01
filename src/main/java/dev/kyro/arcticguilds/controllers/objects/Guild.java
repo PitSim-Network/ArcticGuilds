@@ -210,8 +210,8 @@ public class Guild {
 	}
 
 	public void disband() {
+		for(Map.Entry<GuildMember, GuildMemberInfo> entry : new HashMap<>(members).entrySet()) entry.getKey().leave();
 		GuildManager.guildList.remove(this);
-		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) entry.getKey().leave();
 
 		FileConfiguration fullData = GuildManager.guildFile.getConfiguration();
 		fullData.set(uuid.toString(), null);

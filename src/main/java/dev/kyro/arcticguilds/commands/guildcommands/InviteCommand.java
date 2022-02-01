@@ -100,6 +100,14 @@ public class InviteCommand extends ACommand {
 
 	@Override
 	public List<String> getTabComplete(Player player, String current, List<String> args) {
-		return null;
+		List<String> tabComplete = new ArrayList<>();
+		Guild guild = GuildManager.getGuild(player);
+		if(guild == null) return tabComplete;
+		for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+			Guild onlinePlayerGuild = GuildManager.getGuild(onlinePlayer);
+			if(onlinePlayerGuild == guild) continue;
+			tabComplete.add(onlinePlayer.getName());
+		}
+		return tabComplete;
 	}
 }

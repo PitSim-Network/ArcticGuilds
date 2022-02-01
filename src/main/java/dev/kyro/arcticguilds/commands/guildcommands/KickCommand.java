@@ -15,6 +15,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class KickCommand extends ACommand {
 			}
 		}
 
-		if(guild.ownerUUID.equals(player.getUniqueId())) {
+		if(target.getUniqueId().equals(player.getUniqueId())) {
 			AOutput.error(player, "You cannot kick yourself");
 			return;
 		}
@@ -82,6 +83,16 @@ public class KickCommand extends ACommand {
 
 	@Override
 	public List<String> getTabComplete(Player player, String current, List<String> args) {
-		return null;
+		List<String> tabComplete = new ArrayList<>();
+		Guild guild = GuildManager.getGuild(player);
+		if(guild == null) return null;
+		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
+		for(Map.Entry<GuildMember, GuildMemberInfo> memberEntry : guild.members.entrySet()) {
+			if(!entry.getValue().rank.isAtLeast(memberEntry.getValue().rank)) continue;
+			if(entry.getKey().playerUUID.equals(player.getUniqueId())) continue;
+			OfflinePlayer guildPlayer = Bukkit.getOfflinePlayer(memberEntry.getKey().playerUUID);
+			tabComplete.add(guildPlayer.getName());
+		}
+		return tabComplete;
 	}
 }

@@ -1,4 +1,4 @@
-package dev.kyro.arcticguilds.commands.guildcommands.bank;
+package dev.kyro.arcticguilds.commands.guildcommands;
 
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;

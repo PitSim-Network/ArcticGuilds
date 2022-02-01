@@ -1,4 +1,4 @@
-package dev.kyro.arcticguilds.commands.guildcommands.bank;
+package dev.kyro.arcticguilds.commands.guildcommands;
 
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
@@ -46,6 +46,11 @@ public class DepositCommand extends ACommand {
 
 		if(amount > ArcticGuilds.VAULT.getBalance(player)) {
 			AOutput.error(player, "You do not have enough money to do this");
+			return;
+		}
+
+		if(guild.getBalance() + amount > guild.getMaxBank()) {
+			AOutput.error(player, "Bank is too full");
 			return;
 		}
 

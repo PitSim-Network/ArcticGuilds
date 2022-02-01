@@ -1,5 +1,6 @@
 package dev.kyro.arcticguilds.commands.guildcommands;
 
+import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
@@ -8,9 +9,11 @@ import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import dev.kyro.arcticguilds.inventories.ConfirmationGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Map;
@@ -44,8 +47,16 @@ public class DisbandCommand extends ACommand {
 			}
 		}
 
-		guild.disband();
-		AOutput.send(player, "You have disbanded the guild " + guild.name);
+		BukkitRunnable disband = new BukkitRunnable() {
+			@Override
+			public void run() {
+				guild.disband();
+				AOutput.send(player, "You have disbanded the guild " + guild.name);
+			}
+		};
+		ALoreBuilder yesLore = new ALoreBuilder("&7Clicking here will disband", "&7your guild " + guild.name);
+		ALoreBuilder noLore = new ALoreBuilder("&7Click to cancel");
+		new ConfirmationGUI(player, disband, yesLore, noLore).open();
 	}
 
 	@Override

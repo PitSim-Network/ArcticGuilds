@@ -2,6 +2,8 @@ package dev.kyro.arcticguilds.controllers.objects;
 
 import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticguilds.ArcticGuilds;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class GuildUpgrade {
+public abstract class GuildUpgrade implements Listener {
 	public String displayName;
 	public String refName;
 	public int maxLevel;
@@ -23,6 +25,8 @@ public abstract class GuildUpgrade {
 		this.maxLevel = maxLevel;
 
 		slot = slots.remove(0);
+
+		Bukkit.getPluginManager().registerEvents(this, ArcticGuilds.INSTANCE);
 	}
 
 	public abstract int getCost(int level);

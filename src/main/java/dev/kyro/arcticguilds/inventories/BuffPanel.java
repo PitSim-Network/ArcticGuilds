@@ -57,7 +57,7 @@ public class BuffPanel extends AGUIPanel {
 			Sounds.RESET.play(player);
 		} else {
 			int buffLevel = menuGUI.guild.getLevel(buff);
-			int cost = buffLevel + buff.firstLevelCost - 1;
+			int cost = buffLevel + buff.firstLevelCost;
 			if(level - 1 == buffLevel) {
 				if(menuGUI.guild.getTotalBuffCost() + cost > menuGUI.guild.getRepPoints()) {
 					AOutput.error(player, "You do not have enough reputation points");

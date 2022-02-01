@@ -14,3 +14,7 @@ commands:
     aliases:
       - g
       - group
+  gadmin:
+    description: Guild admin command
+    aliases:
+      - ga

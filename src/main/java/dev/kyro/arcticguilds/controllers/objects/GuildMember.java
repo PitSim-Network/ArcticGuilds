@@ -34,6 +34,10 @@ public class GuildMember {
 	}
 
 	public void leave() {
+		if(guildUUID != null) {
+			Guild guild = GuildManager.getGuild(guildUUID);
+			guild.members.remove(this);
+		}
 		setGuildUUID(null);
 		save();
 	}

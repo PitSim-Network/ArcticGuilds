@@ -3,10 +3,12 @@ package dev.kyro.arcticguilds;
 import dev.kyro.arcticapi.ArcticAPI;
 import dev.kyro.arcticapi.data.APlayerData;
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticguilds.commands.admin.GuildAdminCommand;
+import dev.kyro.arcticguilds.commands.admin.ReputationCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.*;
-import dev.kyro.arcticguilds.commands.guildcommands.bank.BalanceCommand;
-import dev.kyro.arcticguilds.commands.guildcommands.bank.DepositCommand;
-import dev.kyro.arcticguilds.commands.guildcommands.bank.WithdrawalCommand;
+import dev.kyro.arcticguilds.commands.guildcommands.BalanceCommand;
+import dev.kyro.arcticguilds.commands.guildcommands.DepositCommand;
+import dev.kyro.arcticguilds.commands.guildcommands.WithdrawalCommand;
 import dev.kyro.arcticguilds.controllers.*;
 import dev.kyro.arcticguilds.guildbuffs.*;
 import dev.kyro.arcticguilds.guildupgrades.*;
@@ -64,6 +66,9 @@ public class ArcticGuilds extends JavaPlugin {
 		new BalanceCommand(guildCommand, "bal");
 		new DepositCommand(guildCommand, "deposit");
 		new WithdrawalCommand(guildCommand, "withdrawal");
+
+		GuildAdminCommand adminCommand = new GuildAdminCommand("gadmin");
+		new ReputationCommand(adminCommand, "rep");
 	}
 
 	private void registerListeners() {

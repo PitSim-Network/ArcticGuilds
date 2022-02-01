@@ -5,12 +5,22 @@ import dev.kyro.arcticapi.builders.ALoreBuilder;
 import dev.kyro.arcticapi.misc.AUtil;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildUpgrade;
+import dev.kyro.arcticguilds.events.GuildReputationEvent;
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
 public class ReputationIncrease extends GuildUpgrade {
 	public ReputationIncrease() {
 		super("&fIncreased Reputation", "reputation", 5);
+	}
+
+	@EventHandler
+	public void onReputation(GuildReputationEvent event) {
+		Guild guild = event.getGuild();
+		int reputationLevel = guild.getLevel(this);
+		if(reputationLevel == 0) return;
+		event.addMultiplier(1 + reputationLevel / 5.0);
 	}
 
 	@Override
