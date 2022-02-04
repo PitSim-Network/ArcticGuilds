@@ -7,7 +7,6 @@ import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
-import dev.kyro.arcticguilds.controllers.UpgradeManager;
 import dev.kyro.arcticguilds.misc.ColorConverter;
 import dev.kyro.arcticguilds.misc.Sounds;
 import org.bukkit.Bukkit;
@@ -85,11 +84,6 @@ public class MenuPanel extends AGUIPanel {
 		if(slot == 10) {
 			openPanel(menuGUI.dyePanel);
 		} else if(slot == 12) {
-			boolean hasUpgrade = menuGUI.guild.getLevel(UpgradeManager.getUpgrade("buffs")) == 1;
-			if(hasUpgrade) {
-				AOutput.error(player, "You must purchase the guild buff upgrade before accessing this");
-				return;
-			}
 			openPanel(menuGUI.buffPanel);
 		} else if(slot == 13) {
 			openPanel(menuGUI.upgradePanel);

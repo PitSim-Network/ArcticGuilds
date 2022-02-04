@@ -8,13 +8,16 @@ import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildBuff;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Map;
 
 public class DamageBuff extends GuildBuff {
 	public DamageBuff() {
-		super("&cDamage Buff", "damage", ChatColor.RED);
+		super("&cDamage Buff", "damage",
+				new ALoreBuilder("&7Increased damage vs other guild members").getLore(), ChatColor.RED);
 	}
 
 	@Override
@@ -32,6 +35,9 @@ public class DamageBuff extends GuildBuff {
 				.setName(displayName)
 				.setLore(lore)
 				.getItemStack();
+		ItemMeta itemMeta = itemStack.getItemMeta();
+		itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+		itemStack.setItemMeta(itemMeta);
 		return itemStack;
 	}
 

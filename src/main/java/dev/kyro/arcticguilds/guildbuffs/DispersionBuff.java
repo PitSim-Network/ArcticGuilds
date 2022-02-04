@@ -14,7 +14,8 @@ import java.util.Map;
 
 public class DispersionBuff extends GuildBuff {
 	public DispersionBuff() {
-		super("&dDispersion Buff", "renown", ChatColor.LIGHT_PURPLE);
+		super("&dDispersion Buff", "renown",
+				new ALoreBuilder("&7Increased damage vs other guild members").getLore(), ChatColor.LIGHT_PURPLE);
 	}
 
 	@Override

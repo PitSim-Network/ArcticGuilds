@@ -46,7 +46,7 @@ public class ReputationCommand extends ACommand {
 			return;
 		}
 
-		guild.addReputation(amount);
+		guild.addReputationDirect(amount);
 		AOutput.send(player, "&a&lGUILD! &7Gave the guild " + guild.name + " " + amount + " reputation");
 	}
 

@@ -14,7 +14,8 @@ import java.util.Map;
 
 public class GoldBuff extends GuildBuff {
 	public GoldBuff() {
-		super("&6Gold Buff", "gold", ChatColor.GOLD);
+		super("&6Gold Buff", "gold",
+				new ALoreBuilder("&7Increased gold from kills").getLore(), ChatColor.GOLD);
 	}
 
 	@Override

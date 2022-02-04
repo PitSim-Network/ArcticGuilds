@@ -18,7 +18,9 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BuffPanel extends AGUIPanel {
@@ -43,6 +45,7 @@ public class BuffPanel extends AGUIPanel {
 
 	@Override
 	public void onClick(InventoryClickEvent event) {
+		if(event.getClickedInventory().getHolder() != this) return;
 		int slot = event.getSlot();
 		int row = slot / 9;
 		int level = slot % 9;
@@ -104,7 +107,14 @@ public class BuffPanel extends AGUIPanel {
 				ItemStack itemStack = getDisplayLevel(buff, level, status, subBuffs);
 				getInventory().setItem(slot, itemStack);
 			}
-			getInventory().setItem(startingSlot, buff.getDisplayItem(menuGUI.guild, buffLevel));
+			ItemStack itemStack = buff.getDisplayItem(menuGUI.guild, buffLevel);
+			List<String> lore = itemStack.getItemMeta().getLore();
+			if(lore == null) lore = new ArrayList<>();
+			ALoreBuilder loreBuilder = new ALoreBuilder(lore);
+			for(String line : buff.description) loreBuilder.getLore().add(0, line);
+			loreBuilder.addLore("", "&eClick to reset!");
+			new AItemStackBuilder(itemStack).setLore(loreBuilder);
+			getInventory().setItem(startingSlot, itemStack);
 		}
 		updateInventory();
 	}
@@ -124,7 +134,9 @@ public class BuffPanel extends AGUIPanel {
 		}
 		if(status == UnlockStatus.UNLOCKED) {
 		} else if(status == UnlockStatus.UNLOCKING) {
-			lore.addLore("", "&7Cost: &e" + (level + buff.firstLevelCost - 1), "&eClick to unlock!");
+			lore.addLore("", "&7Cost: &e" + (level + buff.firstLevelCost - 1),
+					"&7Points Allocated: &e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getTotalBuffCost())
+							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints()), "", "&eClick to unlock!");
 		} else {
 			lore.addLore("", "&cUnlock prior levels first");
 		}

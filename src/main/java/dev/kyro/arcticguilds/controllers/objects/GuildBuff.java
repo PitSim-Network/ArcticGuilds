@@ -12,15 +12,17 @@ import java.util.Map;
 public abstract class GuildBuff {
 	public String displayName;
 	public String refName;
+	public List<String> description;
 	public ChatColor chatColor;
 
 	public List<SubBuff> subBuffList = new ArrayList<>();
 	public Map<Integer, Map<SubBuff, Double>> subBuffMap = new LinkedHashMap<>();
 	public int firstLevelCost = 1;
 
-	public GuildBuff(String displayName, String refName, ChatColor chatColor) {
+	public GuildBuff(String displayName, String refName, List<String> description, ChatColor chatColor) {
 		this.displayName = displayName;
 		this.refName = refName;
+		this.description = description;
 		this.chatColor = chatColor;
 		addBuffs();
 	}

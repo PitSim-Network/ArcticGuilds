@@ -37,7 +37,7 @@ public class ConfirmationPanel extends AGUIPanel {
 
 	@Override
 	public String getName() {
-		return ChatColor.GRAY + "Disband Confirmation";
+		return ChatColor.GRAY + "Confirmation GUI";
 	}
 
 	@Override

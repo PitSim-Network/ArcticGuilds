@@ -6,12 +6,11 @@ import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.commands.admin.GuildAdminCommand;
 import dev.kyro.arcticguilds.commands.admin.ReputationCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.*;
-import dev.kyro.arcticguilds.commands.guildcommands.BalanceCommand;
-import dev.kyro.arcticguilds.commands.guildcommands.DepositCommand;
-import dev.kyro.arcticguilds.commands.guildcommands.WithdrawalCommand;
 import dev.kyro.arcticguilds.controllers.*;
 import dev.kyro.arcticguilds.guildbuffs.*;
-import dev.kyro.arcticguilds.guildupgrades.*;
+import dev.kyro.arcticguilds.guildupgrades.BankLimit;
+import dev.kyro.arcticguilds.guildupgrades.GuildSize;
+import dev.kyro.arcticguilds.guildupgrades.ReputationIncrease;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -60,6 +59,8 @@ public class ArcticGuilds extends JavaPlugin {
 		new InviteCommand(guildCommand, "invite");
 		new UnInviteCommand(guildCommand, "uninvite");
 		new JoinCommand(guildCommand, "join");
+		new PromoteCommand(guildCommand, "promote");
+		new DemoteCommand(guildCommand, "demote");
 		new LeaveCommand(guildCommand, "leave");
 		new KickCommand(guildCommand, "kick");
 
@@ -93,7 +94,7 @@ public class ArcticGuilds extends JavaPlugin {
 		UpgradeManager.registerUpgrade(new GuildSize());
 		UpgradeManager.registerUpgrade(new BankLimit());
 		UpgradeManager.registerUpgrade(new ReputationIncrease());
-		UpgradeManager.registerUpgrade(new GuildBuffs());
+//		UpgradeManager.registerUpgrade(new GuildBuffs());
 	}
 
 	private void loadConfig() {

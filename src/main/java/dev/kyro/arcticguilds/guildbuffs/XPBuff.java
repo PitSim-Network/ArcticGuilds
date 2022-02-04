@@ -14,7 +14,8 @@ import java.util.Map;
 
 public class XPBuff extends GuildBuff {
 	public XPBuff() {
-		super("&bXP Buff", "xp", ChatColor.AQUA);
+		super("&bXP Buff", "xp",
+				new ALoreBuilder("&7Increased xp from kills").getLore(), ChatColor.AQUA);
 	}
 
 	@Override

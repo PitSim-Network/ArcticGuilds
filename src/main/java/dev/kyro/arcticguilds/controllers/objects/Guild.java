@@ -7,8 +7,10 @@ import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.UpgradeManager;
 import dev.kyro.arcticguilds.enums.GuildRank;
 import dev.kyro.arcticguilds.events.GuildCreateEvent;
+import dev.kyro.arcticguilds.misc.ColorConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -194,7 +196,8 @@ public class Guild {
 		int previousPoints = getRepPoints();
 		reputation += amount;
 		if(previousPoints < getRepPoints()) {
-			broadcast("&a&lGUILD! &7+1 Reputation point");
+			int pointsAdded = getRepPoints() - previousPoints;
+			broadcast("&a&lGUILD! &7+" + pointsAdded + " Reputation point" + (pointsAdded == 1 ? "" : "s"));
 		}
 		save();
 	}
@@ -246,5 +249,15 @@ public class Guild {
 		if(rank == 2) return "&f#2";
 		if(rank == 3) return "&6#3";
 		return "&7" + rank;
+	}
+
+	public ChatColor getColor() {
+		DyeColor dyeColor = null;
+		for(DyeColor value : DyeColor.values()) {
+			if(value.getDyeData() != bannerColor) continue;
+			dyeColor = value;
+		}
+		assert dyeColor != null;
+		return ColorConverter.getChatColor(dyeColor);
 	}
 }

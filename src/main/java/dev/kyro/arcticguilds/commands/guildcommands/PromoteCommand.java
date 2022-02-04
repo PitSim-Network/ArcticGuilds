@@ -8,6 +8,7 @@ import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import dev.kyro.arcticguilds.enums.GuildRank;
 import dev.kyro.arcticguilds.misc.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class KickCommand extends ACommand {
-	public KickCommand(AMultiCommand base, String executor) {
+public class PromoteCommand extends ACommand {
+	public PromoteCommand(AMultiCommand base, String executor) {
 		super(base, executor);
 	}
 
@@ -36,13 +37,13 @@ public class KickCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.KICK_PERMISSION)) {
+		if(!entry.getValue().rank.isAtLeast(Constants.PROMOTE_PERMISSION)) {
 			AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
 			return;
 		}
 
 		if(args.size() < 1) {
-			AOutput.error(player, "Usage: /kick <player>");
+			AOutput.error(player, "Usage: /promote <player>");
 			return;
 		}
 
@@ -62,14 +63,15 @@ public class KickCommand extends ACommand {
 			return;
 		}
 		if(!PermissionManager.isAdmin(player)) {
-			if(guildTarget.getKey().wasModifiedRecently()) {
-				AOutput.error(player, "That player has changed guilds too recently. Please wait " + guildTarget.getKey().getModifiedTimeRemaining());
-				return;
-			}
 			if(!entry.getValue().rank.isAtLeast(guildTarget.getValue().rank) || entry.getValue().rank == guildTarget.getValue().rank) {
-				AOutput.error(player, "You cannot kick someone of a higher rank");
+				AOutput.error(player, "You cannot promote someone of an equal or higher rank");
 				return;
 			}
+		}
+
+		if(guildTarget.getValue().rank.isAtLeast(GuildRank.CO_OWNER)) {
+			AOutput.error(player, "That player cannot be promoted any higher");
+			return;
 		}
 
 		if(target.getUniqueId().equals(player.getUniqueId())) {
@@ -77,10 +79,9 @@ public class KickCommand extends ACommand {
 			return;
 		}
 
-		guildTarget.getKey().leave();
+		guildTarget.getValue().rank = guildTarget.getValue().rank.getRelative(1);
 		guild.save();
-		guild.broadcast("&a&lGUILD! &7 " + target.getName() + "has been kicked from the guild");
-		if(target.getPlayer() != null) AOutput.send(target.getPlayer(), "&a&lGUILD! &7You have been kicked the guild: " + guild.name);
+		guild.broadcast("&a&lGUILD! &7" + target.getName() + " has been promoted to " + guildTarget.getValue().rank.displayName);
 	}
 
 	@Override

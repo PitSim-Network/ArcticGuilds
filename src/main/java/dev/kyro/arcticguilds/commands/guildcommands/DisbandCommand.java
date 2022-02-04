@@ -51,7 +51,7 @@ public class DisbandCommand extends ACommand {
 			@Override
 			public void run() {
 				guild.disband();
-				AOutput.send(player, "You have disbanded the guild " + guild.name);
+				AOutput.send(player, "&a&lGUILD! &7You have disbanded the guild " + guild.name);
 			}
 		};
 		ALoreBuilder yesLore = new ALoreBuilder("&7Clicking here will disband", "&7your guild " + guild.name);

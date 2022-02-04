@@ -36,4 +36,11 @@ public enum GuildRank {
 	public boolean isAtLeast(GuildRank rank) {
 		return getPriority() >= rank.getPriority();
 	}
+
+	public GuildRank getRelative(int higherAmount) {
+		for(int i = 0; i < values().length; i++) {
+			if(values()[i] == this) return values()[i - higherAmount];
+		}
+		return null;
+	}
 }

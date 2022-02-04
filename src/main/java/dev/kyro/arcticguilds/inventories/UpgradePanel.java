@@ -56,7 +56,7 @@ public class UpgradePanel extends AGUIPanel {
 			long balance = menuGUI.guild.getBalance();
 			int cost = upgrade.getCost(level + 1);
 			if(balance < cost) {
-				AOutput.error(player, "Not enough gold in guild bank");
+				AOutput.error(player, "Insufficient bank funds");
 				return;
 			}
 
@@ -77,8 +77,6 @@ public class UpgradePanel extends AGUIPanel {
 
 	@Override
 	public void onClose(InventoryCloseEvent event) {
-//		TODO: Remove
-		if(true) return;
 		new BukkitRunnable() {
 			@Override
 			public void run() {

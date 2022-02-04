@@ -50,11 +50,13 @@ public abstract class GuildUpgrade implements Listener {
 				postLore.addLore("&aMax tier unlocked!");
 			}
 		} else if(level == 0) {
-			postLore.addLore("&7Cost: &6" + ArcticGuilds.decimalFormat.format(getCost(level + 1)));
-			postLore.addLore("&eClick to purchase!");
+			postLore.addLore("&7Cost: &6" + ArcticGuilds.decimalFormat.format(getCost(level + 1)) + "g");
+			postLore.addLore("&7Bank Funds: &6" + ArcticGuilds.decimalFormat.format(guild.getBalance()) + "g");
+			postLore.addLore("", "&eClick to purchase!");
 		} else {
-			postLore.addLore("&7Cost: &6" + ArcticGuilds.decimalFormat.format(getCost(level + 1)));
-			postLore.addLore("&eClick to upgrade!");
+			postLore.addLore("&7Cost: &6" + ArcticGuilds.decimalFormat.format(getCost(level + 1)) + "g");
+			postLore.addLore("&7Bank Funds: &6" + ArcticGuilds.decimalFormat.format(guild.getBalance()) + "g");
+			postLore.addLore("", "&eClick to upgrade!");
 		}
 		lore.addAll(postLore.getLore());
 

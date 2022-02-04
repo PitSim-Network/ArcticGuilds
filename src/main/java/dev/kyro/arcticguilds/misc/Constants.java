@@ -7,4 +7,6 @@ public class Constants {
 	public static GuildRank WITHDRAW_PERMISSION = GuildRank.CO_OWNER;
 	public static GuildRank INVITE_PERMISSION = GuildRank.OFFICER;
 	public static GuildRank KICK_PERMISSION = GuildRank.OFFICER;
+	public static GuildRank PROMOTE_PERMISSION = GuildRank.OFFICER;
+	public static GuildRank DEMOTE_PERMISSION = GuildRank.OFFICER;
 }
