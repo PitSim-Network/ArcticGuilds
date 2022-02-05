@@ -39,7 +39,7 @@ public class PromoteCommand extends ACommand {
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
 		if(!PermissionManager.isAdmin(player)) {
 			if(!entry.getValue().rank.isAtLeast(Constants.PROMOTE_PERMISSION)) {
-				AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
+				AOutput.error(player, "You must be at least " + Constants.PROMOTE_PERMISSION.displayName + " to do this");
 				return;
 			}
 		}
