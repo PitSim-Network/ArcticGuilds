@@ -51,6 +51,7 @@ public class UpgradePanel extends AGUIPanel {
 			int level = menuGUI.guild.getLevel(upgrade);
 			if(level >= upgrade.maxLevel) {
 				AOutput.error(player, "That upgrade is max level");
+				return;
 			}
 
 			long balance = menuGUI.guild.getBalance();
