@@ -37,9 +37,11 @@ public class PromoteCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.PROMOTE_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!entry.getValue().rank.isAtLeast(Constants.PROMOTE_PERMISSION)) {
+				AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
+				return;
+			}
 		}
 
 		if(args.size() < 1) {
@@ -74,9 +76,11 @@ public class PromoteCommand extends ACommand {
 			return;
 		}
 
-		if(target.getUniqueId().equals(player.getUniqueId())) {
-			AOutput.error(player, "You cannot kick yourself");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(target.getUniqueId().equals(player.getUniqueId())) {
+				AOutput.error(player, "You cannot promote yourself");
+				return;
+			}
 		}
 
 		guildTarget.getValue().rank = guildTarget.getValue().rank.getRelative(1);
