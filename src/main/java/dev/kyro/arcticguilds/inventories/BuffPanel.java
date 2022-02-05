@@ -134,7 +134,7 @@ public class BuffPanel extends AGUIPanel {
 		}
 		if(status == UnlockStatus.UNLOCKED) {
 		} else if(status == UnlockStatus.UNLOCKING) {
-			lore.addLore("", "&7Cost: &e" + (level + buff.firstLevelCost - 1),
+			lore.addLore("", "&7Reputation Cost: &e" + (level + buff.firstLevelCost - 1),
 					"&7Points Allocated: &e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getTotalBuffCost())
 							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints()), "", "&eClick to unlock!");
 		} else {
