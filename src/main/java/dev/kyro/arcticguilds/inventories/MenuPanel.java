@@ -7,7 +7,10 @@ import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
+import dev.kyro.arcticguilds.controllers.objects.GuildMember;
+import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.misc.ColorConverter;
+import dev.kyro.arcticguilds.misc.Constants;
 import dev.kyro.arcticguilds.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 
 import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class MenuPanel extends AGUIPanel {
@@ -82,6 +86,11 @@ public class MenuPanel extends AGUIPanel {
 		if(event.getClickedInventory().getHolder() != this) return;
 		int slot = event.getSlot();
 		if(slot == 10) {
+			Map.Entry<GuildMember, GuildMemberInfo> entry = menuGUI.guild.getMember(player);
+			if(!entry.getValue().rank.isAtLeast(Constants.BANNER_COLOR)) {
+				AOutput.error(player, "You must be at least " + Constants.BANNER_COLOR.displayName + " to do this");
+				return;
+			}
 			openPanel(menuGUI.dyePanel);
 		} else if(slot == 12) {
 			openPanel(menuGUI.buffPanel);
