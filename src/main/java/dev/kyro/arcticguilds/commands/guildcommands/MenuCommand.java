@@ -4,6 +4,7 @@ import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
+import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
@@ -33,9 +34,11 @@ public class MenuCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.UPGRADES_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.UPGRADES_PERMISSION.displayName + " to do this");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!entry.getValue().rank.isAtLeast(Constants.UPGRADES_PERMISSION)) {
+				AOutput.error(player, "You must be at least " + Constants.UPGRADES_PERMISSION.displayName + " to do this");
+				return;
+			}
 		}
 
 		new MenuGUI(player, guild).open();

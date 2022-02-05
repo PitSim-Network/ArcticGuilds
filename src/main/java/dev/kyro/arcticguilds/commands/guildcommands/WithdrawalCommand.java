@@ -5,6 +5,7 @@ import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.GuildManager;
+import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
@@ -35,9 +36,11 @@ public class WithdrawalCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.WITHDRAW_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.WITHDRAW_PERMISSION.displayName + " to do this");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!entry.getValue().rank.isAtLeast(Constants.WITHDRAW_PERMISSION)) {
+				AOutput.error(player, "You must be at least " + Constants.WITHDRAW_PERMISSION.displayName + " to do this");
+				return;
+			}
 		}
 
 		if(args.size() < 1) {

@@ -36,9 +36,11 @@ public class KickCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-		if(!entry.getValue().rank.isAtLeast(Constants.KICK_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!entry.getValue().rank.isAtLeast(Constants.KICK_PERMISSION)) {
+				AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
+				return;
+			}
 		}
 
 		if(args.size() < 1) {

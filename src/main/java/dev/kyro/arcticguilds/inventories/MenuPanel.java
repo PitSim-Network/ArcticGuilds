@@ -7,6 +7,7 @@ import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
+import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.misc.ColorConverter;
@@ -87,9 +88,11 @@ public class MenuPanel extends AGUIPanel {
 		int slot = event.getSlot();
 		if(slot == 10) {
 			Map.Entry<GuildMember, GuildMemberInfo> entry = menuGUI.guild.getMember(player);
-			if(!entry.getValue().rank.isAtLeast(Constants.BANNER_COLOR)) {
-				AOutput.error(player, "You must be at least " + Constants.BANNER_COLOR.displayName + " to do this");
-				return;
+			if(!PermissionManager.isAdmin(player)) {
+				if(!entry.getValue().rank.isAtLeast(Constants.BANNER_COLOR)) {
+					AOutput.error(player, "You must be at least " + Constants.BANNER_COLOR.displayName + " to do this");
+					return;
+				}
 			}
 			openPanel(menuGUI.dyePanel);
 		} else if(slot == 12) {

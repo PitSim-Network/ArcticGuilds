@@ -40,9 +40,11 @@ public class InviteCommand extends ACommand {
 		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> info = guild.getMember(player);
-		if(!info.getValue().rank.isAtLeast(Constants.INVITE_PERMISSION)) {
-			AOutput.error(player, "You must be at least " + Constants.INVITE_PERMISSION.displayName + " to do this");
-			return;
+		if(!PermissionManager.isAdmin(player)) {
+			if(!info.getValue().rank.isAtLeast(Constants.INVITE_PERMISSION)) {
+				AOutput.error(player, "You must be at least " + Constants.INVITE_PERMISSION.displayName + " to do this");
+				return;
+			}
 		}
 
 		if(args.size() < 1) {
