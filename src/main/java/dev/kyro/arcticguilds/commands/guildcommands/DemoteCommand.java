@@ -38,7 +38,7 @@ public class DemoteCommand extends ACommand {
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
 		if(!PermissionManager.isAdmin(player)) {
-			if(!entry.getValue().rank.isAtLeast(Constants.PROMOTE_PERMISSION)) {
+			if(!entry.getValue().rank.isAtLeast(Constants.DEMOTE_PERMISSION)) {
 				AOutput.error(player, "You must be at least " + Constants.KICK_PERMISSION.displayName + " to do this");
 				return;
 			}
