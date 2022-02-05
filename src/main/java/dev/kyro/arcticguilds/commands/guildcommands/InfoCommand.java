@@ -5,6 +5,7 @@ import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.data.AConfig;
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
@@ -68,7 +69,7 @@ public class InfoCommand extends ACommand {
 				.addLine("&a&lGUILD " + guild.getColor() + guild.name)
 				.addLine(guild.getColor() + " * &7Date Created: " + guild.getColor() + dateFormat.format(guild.dateCreated))
 				.addLine(guild.getColor() + " * &7Guild Rank: " + guild.getColor() + guild.getFormattedRank())
-				.addLine(guild.getColor() + " * &7Bank Balanace: &6" + guild.getFormattedBalance() + "g")
+				.addLine(guild.getColor() + " * &7Bank Balanace: &6" + guild.getFormattedBalance() + "g&7/&6" + ArcticGuilds.decimalFormat.format(guild.getMaxBank()))
 				.addLine(guild.getColor() + " * &7Owner: " + guild.getColor() + Bukkit.getOfflinePlayer(guild.ownerUUID).getName())
 				.addLine(guild.getColor() + " * &7Members: &7(" + guild.getColor() + guild.members.size() + "&7/" + guild.getColor() + guild.getMaxMembers() + "&7)")
 				.addLine(guild.getColor() + " * &7Online Members: &7(" + guild.getColor() + onlinePlayers.size() + "&7/" + guild.getColor() + guild.members.size() + "&7)");
