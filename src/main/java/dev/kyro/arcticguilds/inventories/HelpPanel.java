@@ -78,8 +78,8 @@ public class HelpPanel extends AGUIPanel {
 				.setName("&7&lJoining and Leaving")
 				.setLore(new ALoreBuilder(
 						"&7Joining, leaving, creating, and disbanding are",
-						"&7all actions that have a cooldown. This ensures",
-						"&7that players don't guild hop.",
+						"&7all actions that have a long cooldown. This",
+						"&7ensures that players don't guild hop",
 						"",
 						"Reference the /guild command",
 						"&7to see commands for these actions"
