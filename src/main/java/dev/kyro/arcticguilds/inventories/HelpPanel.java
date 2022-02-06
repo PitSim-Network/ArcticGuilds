@@ -75,11 +75,10 @@ public class HelpPanel extends AGUIPanel {
 		getInventory().setItem(13, rewards);
 
 		ItemStack joinLeave = new AItemStackBuilder(Material.HOPPER)
-				.setName("&7&lJoining and Leaving")
+				.setName("&7&lJoin/Create Cooldown")
 				.setLore(new ALoreBuilder(
-						"&7Joining, leaving, creating, and disbanding are",
-						"&7all actions that have a long cooldown. This",
-						"&7ensures that players don't guild hop",
+						"&7Joining and creating guilds has a cooldown",
+						"&7to ensure that players don't guild hop",
 						"",
 						"Reference the /guild command",
 						"&7to see commands for these actions"
