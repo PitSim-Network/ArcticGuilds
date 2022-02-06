@@ -123,6 +123,7 @@ public class GuildManager implements Listener {
 	}
 
 	public static List<Guild> getTopGuilds() {
+		sortGuilds();
 		return topGuilds;
 	}
 
