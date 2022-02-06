@@ -48,6 +48,7 @@ public class DyePanel extends AGUIPanel {
 		if(Misc.isAirOrNull(clickedItem) || clickedItem.getType() != Material.BANNER) return;
 		BannerMeta bannerMeta = (BannerMeta) clickedItem.getItemMeta();
 		menuGUI.guild.bannerColor = bannerMeta.getBaseColor().getDyeData();
+		menuGUI.guild.save();
 		menuGUI.menuPanel.setInventory();
 		player.closeInventory();
 	}

@@ -40,13 +40,13 @@ public class GoldBuff extends GuildBuff {
 	public void addBuffs() {
 		SubBuff goldSub = new SubBuff("gold", "&6+%amount%% gold &7from kills");
 
-		addSubBuff(1, goldSub, 1);
-		addSubBuff(2, goldSub, 1);
-		addSubBuff(3, goldSub, 1);
-		addSubBuff(4, goldSub, 1);
-		addSubBuff(5, goldSub, 1);
-		addSubBuff(6, goldSub, 1);
-		addSubBuff(7, goldSub, 1);
-		addSubBuff(8, goldSub, 1);
+		addSubBuff(1, goldSub, 2);
+		addSubBuff(2, goldSub, 2);
+		addSubBuff(3, goldSub, 2);
+		addSubBuff(4, goldSub, 4);
+		addSubBuff(5, goldSub, 2);
+		addSubBuff(6, goldSub, 2);
+		addSubBuff(7, goldSub, 2);
+		addSubBuff(8, goldSub, 4);
 	}
 }

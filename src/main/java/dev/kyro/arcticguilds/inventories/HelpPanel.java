@@ -78,7 +78,7 @@ public class HelpPanel extends AGUIPanel {
 				.setName("&7&lJoin/Create Cooldown")
 				.setLore(new ALoreBuilder(
 						"&7Joining and creating guilds has a cooldown",
-						"&7to ensure that players don't guild hop",
+						"&7to prevent players from abusing guilds",
 						"",
 						"Reference the /guild command",
 						"&7to see commands for these actions"

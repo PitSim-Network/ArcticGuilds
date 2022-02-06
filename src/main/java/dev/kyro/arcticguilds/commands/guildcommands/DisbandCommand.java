@@ -7,8 +7,6 @@ import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
-import dev.kyro.arcticguilds.controllers.objects.GuildMember;
-import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.inventories.ConfirmationGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.Map;
 
 public class DisbandCommand extends ACommand {
 	public DisbandCommand(AMultiCommand base, String executor) {
@@ -40,11 +37,11 @@ public class DisbandCommand extends ACommand {
 				return;
 			}
 
-			Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-			if(entry.getKey().wasModifiedRecently()) {
-				AOutput.error(player, "You have changed guilds too recently. Please wait " + entry.getKey().getModifiedTimeRemaining());
-				return;
-			}
+//			Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
+//			if(entry.getKey().wasModifiedRecently()) {
+//				AOutput.error(player, "You have changed guilds too recently. Please wait " + entry.getKey().getModifiedTimeRemaining());
+//				return;
+//			}
 		}
 
 		BukkitRunnable disband = new BukkitRunnable() {

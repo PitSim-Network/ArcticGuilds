@@ -64,7 +64,7 @@ public class GuildMember {
 		this.lastModify = new Date();
 	}
 
-	public static long MODIFY_TIME = 1000 * 60 * 60 * 24 * 7;
+	public static long MODIFY_TIME = 1000 * 60 * 60 * 1 * 1;
 	public boolean wasModifiedRecently() {
 		return new Date().getTime() - lastModify.getTime() < MODIFY_TIME;
 	}

@@ -4,7 +4,6 @@ import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.controllers.GuildManager;
-import dev.kyro.arcticguilds.controllers.PermissionManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
 import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
@@ -36,13 +35,13 @@ public class LeaveCommand extends ACommand {
 			return;
 		}
 
-		if(!PermissionManager.isAdmin(player)) {
-			Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-			if(entry.getKey().wasModifiedRecently()) {
-				AOutput.error(player, "You have changed guilds too recently. Please wait " + entry.getKey().getModifiedTimeRemaining());
-				return;
-			}
-		}
+//		if(!PermissionManager.isAdmin(player)) {
+//			Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
+//			if(entry.getKey().wasModifiedRecently()) {
+//				AOutput.error(player, "You have changed guilds too recently. Please wait " + entry.getKey().getModifiedTimeRemaining());
+//				return;
+//			}
+//		}
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
 		entry.getKey().leave();

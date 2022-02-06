@@ -41,21 +41,13 @@ public class XPBuff extends GuildBuff {
 		SubBuff xpSub = new SubBuff("xp", "&b+%amount%% XP &7from kills");
 		SubBuff maxXPSub = new SubBuff("maxxp", "&b+%amount%% max XP &7from kills");
 
-		addSubBuff(1, xpSub, 1);
-		addSubBuff(1, maxXPSub, 1);
-		addSubBuff(2, xpSub, 1);
-		addSubBuff(2, maxXPSub, 1);
-		addSubBuff(3, xpSub, 1);
-		addSubBuff(3, maxXPSub, 1);
-		addSubBuff(4, xpSub, 1);
-		addSubBuff(4, maxXPSub, 1);
-		addSubBuff(5, xpSub, 1);
-		addSubBuff(5, maxXPSub, 1);
-		addSubBuff(6, xpSub, 1);
-		addSubBuff(6, maxXPSub, 1);
-		addSubBuff(7, xpSub, 1);
-		addSubBuff(7, maxXPSub, 1);
-		addSubBuff(8, xpSub, 1);
-		addSubBuff(8, maxXPSub, 1);
+		addSubBuff(1, xpSub, 5);
+		addSubBuff(2, maxXPSub, 5);
+		addSubBuff(3, xpSub, 5);
+		addSubBuff(4, maxXPSub, 5);
+		addSubBuff(5, xpSub, 5);
+		addSubBuff(6, maxXPSub, 5);
+		addSubBuff(7, xpSub, 5);
+		addSubBuff(8, maxXPSub, 5);
 	}
 }

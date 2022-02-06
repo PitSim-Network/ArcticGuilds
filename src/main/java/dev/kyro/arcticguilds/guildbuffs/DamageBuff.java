@@ -43,18 +43,16 @@ public class DamageBuff extends GuildBuff {
 
 	@Override
 	public void addBuffs() {
-		SubBuff damageSub = new SubBuff("damage", "&c+%amount%% &7damage");
-		SubBuff trueDamageSub = new SubBuff("truedamage", "&4+%amount%\u2764 true damage");
+		SubBuff damageSub = new SubBuff("damage", "&c+%amount%% &7damage vs other guilds");
+//		SubBuff trueDamageSub = new SubBuff("truedamage", "&4+%amount%\u2764 true damage");
 
 		addSubBuff(1, damageSub, 1);
 		addSubBuff(2, damageSub, 1);
 		addSubBuff(3, damageSub, 1);
 		addSubBuff(4, damageSub, 1);
-		addSubBuff(4, trueDamageSub, 0.1);
 		addSubBuff(5, damageSub, 1);
 		addSubBuff(6, damageSub, 1);
 		addSubBuff(7, damageSub, 1);
 		addSubBuff(8, damageSub, 1);
-		addSubBuff(8, trueDamageSub, 0.1);
 	}
 }
