@@ -45,6 +45,7 @@ public class GuildManager implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+//				TODO: Call this code on buff/upgrade change
 				for(Guild guild : guildList) {
 					guild.diminish();
 					for(Map.Entry<GuildMember, GuildMemberInfo> entry : guild.members.entrySet()) {
@@ -58,16 +59,8 @@ public class GuildManager implements Listener {
 					}
 				}
 			}
-//		}.runTaskTimer(ArcticGuilds.INSTANCE, 17280, 17280);
-		}.runTaskTimer(ArcticGuilds.INSTANCE, 100, 100);
-
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				sortGuilds();
-			}
-//		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 60);
-		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 100);
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 17280, 17280);
+//		}.runTaskTimer(ArcticGuilds.INSTANCE, 100, 100);
 
 		new BukkitRunnable() {
 			@Override
@@ -108,7 +101,7 @@ public class GuildManager implements Listener {
 		return new GuildMember(playerUUID);
 	}
 
-	public static void sortGuilds() {
+	private static void sortGuilds() {
 		topGuilds.clear();
 		input:
 		for(Guild guild : guildList) {

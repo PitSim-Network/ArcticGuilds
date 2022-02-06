@@ -69,6 +69,9 @@ public class InfoCommand extends ACommand {
 				.addLine("&a&lGUILD " + guild.getColor() + guild.name)
 				.addLine(guild.getColor() + " * &7Date Created: " + guild.getColor() + dateFormat.format(guild.dateCreated))
 				.addLine(guild.getColor() + " * &7Guild Rank: " + guild.getColor() + guild.getFormattedRank())
+				.addLine(guild.getColor() + " * &7Guild Reputation: " + guild.getColor() + guild.reputation)
+				.addLine(guild.getColor() + " * &7Reputation Points: " + guild.getColor() + guild.getTotalBuffCost() +
+						"&7/" + guild.getColor() + guild.getRepPoints())
 				.addLine(guild.getColor() + " * &7Bank Balanace: &6" + guild.getFormattedBalance() + "g&7/&6" + ArcticGuilds.decimalFormat.format(guild.getMaxBank()))
 				.addLine(guild.getColor() + " * &7Owner: " + guild.getColor() + Bukkit.getOfflinePlayer(guild.ownerUUID).getName())
 				.addLine(guild.getColor() + " * &7Members: &7(" + guild.getColor() + guild.members.size() + "&7/" + guild.getColor() + guild.getMaxMembers() + "&7)")

@@ -100,6 +100,7 @@ public class Guild {
 		for(GuildBuff buff : BuffManager.buffList) guildData.set("buffs." + buff.refName, buffLevels.get(buff));
 		for(GuildUpgrade upgrade : UpgradeManager.upgradeList) guildData.set("upgrades." + upgrade.refName, upgradeLevels.get(upgrade));
 
+		guildData.set("members", null);
 		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
 			String key = "members." + entry.getKey().playerUUID;
 			ConfigurationSection memberData = guildData.getConfigurationSection(key);
@@ -145,6 +146,7 @@ public class Guild {
 		GuildMember guildMember = GuildManager.getMember(player.getUniqueId());
 		guildMember.setGuildUUID(uuid);
 		members.put(guildMember, new GuildMemberInfo());
+		save();
 	}
 
 	public String getFormattedBalance() {

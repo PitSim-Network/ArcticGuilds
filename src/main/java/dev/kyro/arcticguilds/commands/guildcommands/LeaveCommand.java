@@ -46,8 +46,7 @@ public class LeaveCommand extends ACommand {
 
 		Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
 		entry.getKey().leave();
-		guild.save();
-		guild.broadcast("&a&lGUILD! &7 " + player.getName() + "has left the guild");
+		guild.broadcast("&a&lGUILD! &7" + player.getName() + " has left the guild");
 		AOutput.send(player, "&a&lGUILD! &7You have left the guild: " + guild.name);
 	}
 
