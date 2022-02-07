@@ -29,10 +29,25 @@ public class InfoCommand extends ACommand {
 		if(!(sender instanceof Player)) return;
 		Player player = (Player) sender;
 
-		Guild guild = GuildManager.getGuild(player);
+		Guild guild = null;
+		if(!args.isEmpty()) {
+			String guildName = args.get(0);
+			for(Guild testGuild : GuildManager.guildList) {
+				if(!testGuild.name.equalsIgnoreCase(guildName)) continue;
+				guild = testGuild;
+				break;
+			}
+			if(guild == null) {
+				AOutput.error(player, "That guild does not exist");
+				return;
+			}
+		}
 		if(guild == null) {
-			AOutput.error(player, "You are not in a guild");
-			return;
+			guild = GuildManager.getGuild(player);
+			if(guild == null) {
+				AOutput.error(player, "You are not in a guild");
+				return;
+			}
 		}
 
 		List<Map.Entry<GuildMember, GuildMemberInfo>> sortedPlayers = new ArrayList<>();
