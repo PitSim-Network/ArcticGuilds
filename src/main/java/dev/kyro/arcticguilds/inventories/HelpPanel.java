@@ -80,7 +80,7 @@ public class HelpPanel extends AGUIPanel {
 						"&7Joining and creating guilds has a cooldown",
 						"&7to prevent players from abusing guilds",
 						"",
-						"Reference the /guild command",
+						"&7Reference the /guild command",
 						"&7to see commands for these actions"
 				))
 				.getItemStack();
