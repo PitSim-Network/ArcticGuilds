@@ -74,12 +74,12 @@ public class InviteCommand extends ACommand {
 			return;
 		}
 
-		if(!PermissionManager.isAdmin(player)) {
-			if(guild.members.size() >= guild.getMaxMembers()) {
-				AOutput.error(player, "Your guild at its maximum size");
-				return;
-			}
+		if(guild.members.size() >= guild.getMaxMembers()) {
+			AOutput.error(player, "Your guild at its maximum size");
+			return;
+		}
 
+		if(!PermissionManager.isAdmin(player)) {
 			if(cooldownList.contains(target.getUniqueId())) {
 				AOutput.error(player, "Please wait before trying to invite this player again");
 				return;
