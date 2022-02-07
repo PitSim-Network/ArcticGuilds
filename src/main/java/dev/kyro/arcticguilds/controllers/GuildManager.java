@@ -76,6 +76,13 @@ public class GuildManager implements Listener {
 				}
 			}
 		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 10);
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				sortGuilds();
+			}
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 0, 20 * 60);
 	}
 
 	public static Guild getGuild(UUID guildUUID) {
@@ -121,8 +128,8 @@ public class GuildManager implements Listener {
 	}
 
 	public static int getRank(Guild guild) {
-		for(int i = 0; i < guildList.size(); i++) {
-			Guild testGuild = guildList.get(i);
+		for(int i = 0; i < topGuilds.size(); i++) {
+			Guild testGuild = topGuilds.get(i);
 			if(testGuild == guild) return i;
 		}
 		return -1;
