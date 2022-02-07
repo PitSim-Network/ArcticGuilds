@@ -133,12 +133,20 @@ public class BuffPanel extends AGUIPanel {
 			lore.addLore(status.color + entry.getKey().getDisplayString(entry.getValue()));
 		}
 		if(status == UnlockStatus.UNLOCKED) {
+			lore.addLore("", "&7Reputation Cost: &e" + (level + buff.firstLevelCost - 1),
+					"&7Points Allocated: &e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getTotalBuffCost())
+							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints())
+					, "", "&aUnlocked!");
 		} else if(status == UnlockStatus.UNLOCKING) {
 			lore.addLore("", "&7Reputation Cost: &e" + (level + buff.firstLevelCost - 1),
 					"&7Points Allocated: &e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getTotalBuffCost())
-							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints()), "", "&eClick to unlock!");
+							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints())
+					, "", "&eClick to unlock!");
 		} else {
-			lore.addLore("", "&cUnlock prior levels first");
+			lore.addLore("", "&7Reputation Cost: &e" + (level + buff.firstLevelCost - 1),
+					"&7Points Allocated: &e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getTotalBuffCost())
+							+ "&7/&e" + ArcticGuilds.decimalFormat.format(menuGUI.guild.getRepPoints())
+					, "", "&cUnlock prior levels first!");
 		}
 
 		ItemStack itemStack = new AItemStackBuilder(status.material, level, status.data)
