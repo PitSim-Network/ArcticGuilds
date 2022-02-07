@@ -16,7 +16,7 @@ public class ColorConverter {
 			case BROWN:
 				return ChatColor.BLACK;
 			case BLUE:
-				return ChatColor.DARK_BLUE;
+				return ChatColor.BLUE;
 			case PURPLE:
 				return ChatColor.DARK_PURPLE;
 			case CYAN:
