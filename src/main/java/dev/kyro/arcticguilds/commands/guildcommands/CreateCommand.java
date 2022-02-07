@@ -59,9 +59,9 @@ public class CreateCommand extends ACommand {
 			AOutput.error(player, "Your guild's name cannot be longer than 16 characters");
 			return;
 		}
-		Pattern pattern = Pattern.compile("[^a-z0-9_#]", Pattern.CASE_INSENSITIVE);
+		Pattern pattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
 		if(pattern.matcher(name).find()) {
-			AOutput.error(player, "Names can only contain numbers, letters, underscores, and octothorpes");
+			AOutput.error(player, "Names can only contain numbers and letters");
 			return;
 		}
 
