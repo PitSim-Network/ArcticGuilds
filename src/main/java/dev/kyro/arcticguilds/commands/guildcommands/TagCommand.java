@@ -58,7 +58,7 @@ public class TagCommand extends ACommand {
 		}
 
 		for(Guild testGuild : GuildManager.guildList) {
-			if(!testGuild.tag.equalsIgnoreCase(tag)) continue;
+			if(testGuild.tag == null || !testGuild.tag.equalsIgnoreCase(tag) || testGuild == guild) continue;
 			AOutput.error(player, "A guild with that tag already exists");
 			return;
 		}
