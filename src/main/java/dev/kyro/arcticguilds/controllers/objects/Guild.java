@@ -252,7 +252,7 @@ public class Guild {
 		if(rank == 1) return "&e#1";
 		if(rank == 2) return "&f#2";
 		if(rank == 3) return "&6#3";
-		return "&7" + rank;
+		return "&7#" + rank;
 	}
 
 	public ChatColor getColor() {
