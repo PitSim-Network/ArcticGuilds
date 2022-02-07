@@ -65,7 +65,7 @@ public class TagCommand extends ACommand {
 
 		guild.tag = tag;
 		guild.save();
-		AOutput.send(player, "&7Your guild's tag is now &e#" + guild.tag);
+		guild.broadcast("&aGUILD! &7Your guild's tag is now " + guild.getColor() + "#" + guild.tag);
 	}
 
 	@Override
