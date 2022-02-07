@@ -140,6 +140,8 @@ public class Guild {
 		message = ChatColor.stripColor(message);
 		message = "&8[&aGuild&8] &a" + info.getValue().rank.prefix + player.getName() + " &8>> &a" + message;
 		broadcast(message);
+		System.out.println(ChatColor.translateAlternateColorCodes('&', "&8[&a" + name + "&8] &a" +
+				info.getValue().rank.prefix + player.getName() + " &8>> &a" + message));
 	}
 
 	public void addMember(Player player) {
