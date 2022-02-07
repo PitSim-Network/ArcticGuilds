@@ -89,8 +89,8 @@ public class MenuPanel extends AGUIPanel {
 		if(slot == 10) {
 			Map.Entry<GuildMember, GuildMemberInfo> entry = menuGUI.guild.getMember(player);
 			if(!PermissionManager.isAdmin(player)) {
-				if(!entry.getValue().rank.isAtLeast(Constants.BANNER_COLOR)) {
-					AOutput.error(player, "You must be at least " + Constants.BANNER_COLOR.displayName + " to do this");
+				if(!entry.getValue().rank.isAtLeast(Constants.BANNER_COLOR_PERMISSION)) {
+					AOutput.error(player, "You must be at least " + Constants.BANNER_COLOR_PERMISSION.displayName + " to do this");
 					return;
 				}
 			}
