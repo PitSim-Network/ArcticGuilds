@@ -38,8 +38,17 @@ public class InfoCommand extends ACommand {
 				break;
 			}
 			if(guild == null) {
-				AOutput.error(player, "That guild does not exist");
-				return;
+				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(guildName);
+				if(offlinePlayer == null) {
+					AOutput.error(player, "Could not find that guild/player");
+					return;
+				}
+				Guild testGuild = GuildManager.getGuild(offlinePlayer);
+				if(testGuild == null) {
+					AOutput.error(player, "That player is not in a guild");
+					return;
+				}
+				guild = testGuild;
 			}
 		}
 		if(guild == null) {
@@ -109,10 +118,6 @@ public class InfoCommand extends ACommand {
 
 	@Override
 	public List<String> getTabComplete(Player player, String current, List<String> args) {
-		List<String> tabComplete = new ArrayList<>();
-		for(Guild guild : GuildManager.guildList) {
-			tabComplete.add(guild.name);
-		}
-		return tabComplete;
+		return null;
 	}
 }

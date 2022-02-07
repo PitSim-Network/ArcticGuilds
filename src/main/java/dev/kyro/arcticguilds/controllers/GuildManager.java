@@ -10,6 +10,7 @@ import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.events.GuildReputationEvent;
 import dev.kyro.arcticguilds.inventories.BuffPanel;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -90,7 +91,7 @@ public class GuildManager implements Listener {
 		return null;
 	}
 
-	public static Guild getGuild(Player player) {
+	public static Guild getGuild(OfflinePlayer player) {
 		for(Guild guild : guildList) {
 			for(Map.Entry<GuildMember, GuildMemberInfo> entry : guild.members.entrySet()) {
 				if(!entry.getKey().playerUUID.equals(player.getUniqueId())) continue;
