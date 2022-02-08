@@ -33,7 +33,7 @@ public class BankLimit extends GuildUpgrade {
 	public ItemStack getBaseStack(Guild guild, int level) {
 		ALoreBuilder lore = new ALoreBuilder();
 		if(level != 0) {
-			lore.addLore("&7Current: &6" + ArcticGuilds.decimalFormat.format(guild.getMaxBank()) + "g bank size", "&7Tier: &a" + AUtil.toRoman(level), "");
+			lore.addLore("&7Current: &6" + ArcticGuilds.decimalFormat.format(guild.getMaxBank()) + "g &7bank size", "&7Tier: &a" + AUtil.toRoman(level), "");
 		}
 		lore.addLore("&7Each tier:", "&6x10 &7bank size");
 
