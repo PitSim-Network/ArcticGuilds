@@ -172,8 +172,8 @@ public class Guild {
 
 	public void diminish() {
 		double reduction = reputation;
-		reduction = Math.pow(reduction, 1.5);
-		reduction *= 0.000_05;
+		reduction = Math.pow(reduction, 1.7);
+		reduction *= 0.000_01;
 
 		reputation = (int) Math.max(reputation - reduction, 0);
 

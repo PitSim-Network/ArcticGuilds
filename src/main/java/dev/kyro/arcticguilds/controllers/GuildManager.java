@@ -60,7 +60,7 @@ public class GuildManager implements Listener {
 					}
 				}
 			}
-		}.runTaskTimer(ArcticGuilds.INSTANCE, 17280, 20 * 60 * 29);
+		}.runTaskTimer(ArcticGuilds.INSTANCE, 17280, 20 * 60 * 59);
 //		}.runTaskTimer(ArcticGuilds.INSTANCE, 100, 100);
 
 		new BukkitRunnable() {
