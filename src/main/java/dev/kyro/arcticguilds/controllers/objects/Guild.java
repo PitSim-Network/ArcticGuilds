@@ -138,9 +138,9 @@ public class Guild {
 	public void chat(Player player, String message) {
 		Map.Entry<GuildMember, GuildMemberInfo> info = getMember(player);
 		message = ChatColor.stripColor(message);
+		System.out.println("[" + name + "] " + info.getValue().rank.prefix + player.getName() + " >> " + message);
 		message = "&8[&aGuild&8] &a" + info.getValue().rank.prefix + player.getName() + " &8>> &a" + message;
 		broadcast(message);
-		System.out.println("[" + name + "] " + info.getValue().rank.prefix + player.getName() + " >> " + message);
 	}
 
 	public void addMember(Player player) {
