@@ -16,7 +16,7 @@ public class XPBuff extends GuildBuff {
 	public XPBuff() {
 		super("&bXP Buff", "xp",
 				new ALoreBuilder("&7Increased xp from kills").getLore(), ChatColor.AQUA);
-		firstLevelCost = 2;
+		firstLevelCost = 3;
 	}
 
 	@Override
