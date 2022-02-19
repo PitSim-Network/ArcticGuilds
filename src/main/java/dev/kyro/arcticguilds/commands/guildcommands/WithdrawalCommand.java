@@ -62,13 +62,14 @@ public class WithdrawalCommand extends ACommand {
 			return;
 		}
 
+		GuildWithdrawalEvent event = new GuildWithdrawalEvent(player, guild, amount);
+		Bukkit.getPluginManager().callEvent(event);
+		if(event.isCancelled()) return;
+
 		ArcticGuilds.VAULT.depositPlayer(player, amount);
 		guild.withdraw(amount);
 
 		guild.broadcast("&a&lGUILD! &7" + player.getName() + " has withdrawn &6" + ArcticGuilds.decimalFormat.format(amount) + "g");
-
-		GuildWithdrawalEvent event = new GuildWithdrawalEvent(player, guild, amount);
-		Bukkit.getPluginManager().callEvent(event);
 	}
 
 	@Override
