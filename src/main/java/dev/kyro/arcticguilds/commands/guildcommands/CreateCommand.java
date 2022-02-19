@@ -50,7 +50,7 @@ public class CreateCommand extends ACommand {
 		}
 
 		if(ArcticGuilds.VAULT.getBalance(player) < GUILD_CREATION_COST) {
-			AOutput.error(player, "You do not have enough money to do that");
+			AOutput.error(player, "&7You need to have &6g" + ArcticGuilds.decimalFormat.format(GUILD_CREATION_COST) + "g &7to do that");
 			return;
 		}
 
