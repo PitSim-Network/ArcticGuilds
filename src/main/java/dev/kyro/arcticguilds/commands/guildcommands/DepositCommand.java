@@ -6,7 +6,7 @@ import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.objects.Guild;
-import dev.kyro.arcticguilds.events.GuildWithdrawalEvent;
+import dev.kyro.arcticguilds.events.GuildDepositEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -59,7 +59,7 @@ public class DepositCommand extends ACommand {
 
 		guild.broadcast("&a&lGUILD! &7" + player.getName() + " has deposited &6" + ArcticGuilds.decimalFormat.format(amount) + "g");
 
-		GuildWithdrawalEvent event = new GuildWithdrawalEvent(player, guild, amount);
+		GuildDepositEvent event = new GuildDepositEvent(player, guild, amount);
 		Bukkit.getPluginManager().callEvent(event);
 	}
 
