@@ -52,6 +52,7 @@ public class ArcticGuilds extends JavaPlugin {
 		new HelpCommand(guildCommand, "help");
 		new InfoCommand(guildCommand, "info");
 		new CreateCommand(guildCommand, "create");
+		new TransferCommand(guildCommand, "transfer");
 		new DisbandCommand(guildCommand, "disband");
 		new ChatCommand(guildCommand, "chat");
 		new MenuCommand(guildCommand, "menu");

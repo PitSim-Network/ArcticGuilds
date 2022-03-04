@@ -111,8 +111,12 @@ public class Guild {
 	}
 
 	public Map.Entry<GuildMember, GuildMemberInfo> getMember(Player player) {
+		return getMember(player.getUniqueId());
+	}
+
+	public Map.Entry<GuildMember, GuildMemberInfo> getMember(UUID uuid) {
 		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
-			if(!entry.getKey().playerUUID.equals(player.getUniqueId())) continue;
+			if(!entry.getKey().playerUUID.equals(uuid)) continue;
 			return entry;
 		}
 		return null;

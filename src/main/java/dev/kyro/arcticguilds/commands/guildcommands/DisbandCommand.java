@@ -36,12 +36,6 @@ public class DisbandCommand extends ACommand {
 				AOutput.error(player, "you are not the owner of your guild");
 				return;
 			}
-
-//			Map.Entry<GuildMember, GuildMemberInfo> entry = guild.getMember(player);
-//			if(entry.getKey().wasModifiedRecently()) {
-//				AOutput.error(player, "You have changed guilds too recently. Please wait " + entry.getKey().getModifiedTimeRemaining());
-//				return;
-//			}
 		}
 
 		BukkitRunnable disband = new BukkitRunnable() {
