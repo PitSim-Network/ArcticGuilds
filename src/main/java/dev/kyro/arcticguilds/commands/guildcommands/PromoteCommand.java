@@ -64,16 +64,17 @@ public class PromoteCommand extends ACommand {
 			AOutput.error(player, "That player is not in your guild");
 			return;
 		}
-		if(!PermissionManager.isAdmin(player)) {
-			if(!entry.getValue().rank.isAtLeast(guildTarget.getValue().rank) || entry.getValue().rank == guildTarget.getValue().rank) {
-				AOutput.error(player, "You cannot promote someone of an equal or higher rank");
-				return;
-			}
-		}
 
 		if(guildTarget.getValue().rank.isAtLeast(GuildRank.CO_OWNER)) {
 			AOutput.error(player, "That player cannot be promoted any higher");
 			return;
+		}
+
+		if(!PermissionManager.isAdmin(player)) {
+			if(guildTarget.getValue().rank.getPriority() + 1 >= entry.getValue().rank.getPriority()) {
+				AOutput.error(player, "You cannot promote someone of an equal or higher rank");
+				return;
+			}
 		}
 
 		if(!PermissionManager.isAdmin(player)) {
