@@ -57,6 +57,7 @@ public class ArcticGuilds extends JavaPlugin {
 		new ChatCommand(guildCommand, "chat");
 		new MenuCommand(guildCommand, "menu");
 		new TagCommand(guildCommand, "tag");
+		new RenameCommand(guildCommand, "rename");
 
 		new InviteCommand(guildCommand, "invite");
 		new JoinCommand(guildCommand, "join");
