@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class CreateCommand extends ACommand {
-	public static int GUILD_CREATION_COST = 1_000_000;
+	public static int GUILD_CREATION_COST = 500_000;
 
 	public CreateCommand(AMultiCommand base, String executor) {
 		super(base, executor);
