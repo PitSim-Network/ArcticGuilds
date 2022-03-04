@@ -58,7 +58,6 @@ public class ArcticGuilds extends JavaPlugin {
 		new TagCommand(guildCommand, "tag");
 
 		new InviteCommand(guildCommand, "invite");
-		new UnInviteCommand(guildCommand, "uninvite");
 		new JoinCommand(guildCommand, "join");
 		new PromoteCommand(guildCommand, "promote");
 		new DemoteCommand(guildCommand, "demote");
