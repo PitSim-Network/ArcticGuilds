@@ -79,7 +79,7 @@ public class RenameCommand extends ACommand {
 			return;
 		}
 
-		BukkitRunnable disband = new BukkitRunnable() {
+		BukkitRunnable rename = new BukkitRunnable() {
 			@Override
 			public void run() {
 				if(guild.getBalance() < GUILD_RENAME_COST) {
@@ -95,7 +95,7 @@ public class RenameCommand extends ACommand {
 		ALoreBuilder yesLore = new ALoreBuilder("&7Clicking here will rename", "&7your guild to " + name, "",
 				"&7Doing so costs &6" + ArcticGuilds.decimalFormat.format(GUILD_RENAME_COST) + "g");
 		ALoreBuilder noLore = new ALoreBuilder("&7Click to cancel");
-		new ConfirmationGUI(player, disband, yesLore, noLore).open();
+		new ConfirmationGUI(player, rename, yesLore, noLore).open();
 	}
 
 	@Override
