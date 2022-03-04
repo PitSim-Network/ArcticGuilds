@@ -50,7 +50,7 @@ public class CreateCommand extends ACommand {
 		}
 
 		if(ArcticGuilds.VAULT.getBalance(player) < GUILD_CREATION_COST) {
-			AOutput.error(player, "&7You need to have &6g" + ArcticGuilds.decimalFormat.format(GUILD_CREATION_COST) + "g &7to do that");
+			AOutput.error(player, "&7You need to have &6" + ArcticGuilds.decimalFormat.format(GUILD_CREATION_COST) + "g &7to do that");
 			return;
 		}
 
@@ -74,8 +74,12 @@ public class CreateCommand extends ACommand {
 		BukkitRunnable disband = new BukkitRunnable() {
 			@Override
 			public void run() {
-				Guild guild = new Guild(player, name);
+				if(ArcticGuilds.VAULT.getBalance(player) < GUILD_CREATION_COST) {
+					AOutput.error(player, "You no longer have sufficient funds to do this");
+					return;
+				}
 				ArcticGuilds.VAULT.withdrawPlayer(player, GUILD_CREATION_COST);
+				Guild guild = new Guild(player, name);
 				AOutput.send(player, "&a&lGUILD! &7You have created a guild with the name: " + guild.name);
 			}
 		};

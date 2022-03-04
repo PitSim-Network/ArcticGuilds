@@ -52,8 +52,8 @@ public class RenameCommand extends ACommand {
 			return;
 		}
 
-		if(ArcticGuilds.VAULT.getBalance(player) < GUILD_RENAME_COST) {
-			AOutput.error(player, "&7You need to have &6g" + ArcticGuilds.decimalFormat.format(GUILD_RENAME_COST) + "g &7to do that");
+		if(guild.getBalance() < GUILD_RENAME_COST) {
+			AOutput.error(player, "&7You need to have &6" + ArcticGuilds.decimalFormat.format(GUILD_RENAME_COST) + "g &7to do that");
 			return;
 		}
 
@@ -68,6 +68,11 @@ public class RenameCommand extends ACommand {
 			return;
 		}
 
+		if(guild.name.equals(name)) {
+			AOutput.error(player, "Your guild already has that name");
+			return;
+		}
+
 		for(Guild testGuild : GuildManager.guildList) {
 			if(testGuild == guild || !testGuild.name.equalsIgnoreCase(name)) continue;
 			AOutput.error(player, "A guild with that name already exists");
@@ -77,7 +82,11 @@ public class RenameCommand extends ACommand {
 		BukkitRunnable disband = new BukkitRunnable() {
 			@Override
 			public void run() {
-				ArcticGuilds.VAULT.withdrawPlayer(player, GUILD_RENAME_COST);
+				if(guild.getBalance() < GUILD_RENAME_COST) {
+					AOutput.error(player, "You no longer have sufficient funds to do this");
+					return;
+				}
+				guild.withdraw(GUILD_RENAME_COST);
 				guild.broadcast("&a&lGUILD! &7Guild name changed to: " + guild.name);
 			}
 		};
