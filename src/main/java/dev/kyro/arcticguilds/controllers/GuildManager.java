@@ -56,10 +56,10 @@ public class GuildManager implements Listener {
 				data[2] = rs.getString("owner");
 				data[3] = rs.getLong("balance");
 				data[4] = rs.getInt("reputation");
-				data[6] = rs.getInt("tag");
-				data[7] = rs.getInt("banner");
+				data[5] = rs.getString("tag");
+				data[6] = rs.getInt("banner");
 
-				int i = 8;
+				int i = 7;
 				for(GuildBuff guildBuff : BuffManager.buffList) {
 					data[i] = rs.getInt("buffs_" +guildBuff.refName);
 					i++;
