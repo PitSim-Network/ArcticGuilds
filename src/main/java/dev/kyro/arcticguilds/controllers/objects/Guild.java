@@ -3,6 +3,7 @@ package dev.kyro.arcticguilds.controllers.objects;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.ArcticGuilds;
 import dev.kyro.arcticguilds.controllers.BuffManager;
+import dev.kyro.arcticguilds.controllers.ConnectionManager;
 import dev.kyro.arcticguilds.controllers.GuildManager;
 import dev.kyro.arcticguilds.controllers.UpgradeManager;
 import dev.kyro.arcticguilds.enums.GuildRank;
@@ -15,6 +16,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Guild {
@@ -80,34 +83,87 @@ public class Guild {
 		GuildManager.guildList.add(this);
 	}
 
-	public void save() {
-		FileConfiguration fullData = GuildManager.guildFile.getConfiguration();
-		ConfigurationSection guildData = fullData.getConfigurationSection(uuid.toString());
-		if(guildData == null) guildData = fullData.createSection(uuid.toString());
-		save(guildData);
-		GuildManager.guildFile.saveDataFile();
+	public Guild(String key, Object[] guildData) {
+		this.uuid = UUID.fromString(key);
+		this.dateCreated = new Date((long) guildData[0]);
+		this.name = (String) guildData[1];
+		this.ownerUUID = UUID.fromString((String) guildData[2]);
+
+		this.balance = (long) guildData[3];
+		this.reputation = (int) guildData[4];
+		this.tag = (String) guildData[5];
+		this.bannerColor = (int) guildData[6];
+		int i = 7;
+		for(GuildBuff buff : BuffManager.buffList) this.buffLevels.put(buff, guildData[i++] == null ? 0 : (int) guildData[i - 1]);
+		for(GuildUpgrade upgrade : UpgradeManager.upgradeList) this.upgradeLevels.put(upgrade, guildData[i++] == null ? 0 : (int) guildData[i - 1]);
+
+		String members = (String) guildData[i];
+		if(members != null) {
+			for(String member : members.split(",")) {
+				String[] memberData = member.split(":");
+				GuildMember guildMember = GuildManager.getMember(UUID.fromString(memberData[0]));
+				guildMember.setGuildUUID(uuid);
+				this.members.put(guildMember, new GuildMemberInfo(GuildRank.getRank(memberData[1])));
+			}
+		}
+
+		GuildManager.guildList.add(this);
 	}
 
-	public void save(ConfigurationSection guildData) {
-		guildData.set("created", dateCreated.getTime());
-		guildData.set("name", name);
-		guildData.set("owner", ownerUUID.toString());
 
-		guildData.set("balance", balance);
-		guildData.set("reputation", reputation);
-		guildData.set("tag", tag);
-		guildData.set("banner", bannerColor);
-		for(GuildBuff buff : BuffManager.buffList) guildData.set("buffs." + buff.refName, buffLevels.get(buff));
-		for(GuildUpgrade upgrade : UpgradeManager.upgradeList) guildData.set("upgrades." + upgrade.refName, upgradeLevels.get(upgrade));
+	public void save() {
+//		guildData.set("created", dateCreated.getTime());
+//		guildData.set("name", name);
+//		guildData.set("owner", ownerUUID.toString());
+//
+//		guildData.set("balance", balance);
+//		guildData.set("reputation", reputation);
+//		guildData.set("tag", tag);
+//		guildData.set("banner", bannerColor);
+//		for(GuildBuff buff : BuffManager.buffList) guildData.set("buffs." + buff.refName, buffLevels.get(buff));
+//		for(GuildUpgrade upgrade : UpgradeManager.upgradeList) guildData.set("upgrades." + upgrade.refName, upgradeLevels.get(upgrade));
+//
+//		guildData.set("members", null);
+//		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
+//			String key = "members." + entry.getKey().playerUUID;
+//			ConfigurationSection memberData = guildData.getConfigurationSection(key);
+//			if(memberData == null) memberData = guildData.createSection(key);
+//			entry.getKey().save();
+//			entry.getValue().save(memberData);
+//		}
 
-		guildData.set("members", null);
-		for(Map.Entry<GuildMember, GuildMemberInfo> entry : members.entrySet()) {
-			String key = "members." + entry.getKey().playerUUID;
-			ConfigurationSection memberData = guildData.getConfigurationSection(key);
-			if(memberData == null) memberData = guildData.createSection(key);
-			entry.getKey().save();
-			entry.getValue().save(memberData);
-		}
+
+		String query = "REPLACE INTO GUILD_DATA (UUID, created, name, owner, balance, reputation," +
+				" banner, buffs_damage, buffs_defence, buffs_xp, buffs_gold, buffs_renown, upgrades_size, upgrades_bank, " +
+				"upgrades_reputation, tag, members) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		try(PreparedStatement statement = ConnectionManager.connection.prepareStatement(query)) {
+			statement.setString(1, uuid.toString());
+			statement.setLong(2, dateCreated.getTime());
+			statement.setString(3, name);
+			statement.setString(4, ownerUUID.toString());
+			statement.setLong(5, balance);
+			statement.setInt(6, reputation);
+			statement.setInt(7, bannerColor);
+			statement.setInt(8, buffLevels.get(BuffManager.getBuff("damage")));
+			statement.setInt(9, buffLevels.get(BuffManager.getBuff("defence")));
+			statement.setInt(10, buffLevels.get(BuffManager.getBuff("xp")));
+			statement.setInt(11, buffLevels.get(BuffManager.getBuff("gold")));
+			statement.setInt(12, buffLevels.get(BuffManager.getBuff("renown")));
+			statement.setInt(13, upgradeLevels.get(UpgradeManager.getUpgrade("size")));
+			statement.setInt(14, upgradeLevels.get(UpgradeManager.getUpgrade("bank")));
+			statement.setInt(15, upgradeLevels.get(UpgradeManager.getUpgrade("reputation")));
+			statement.setString(16, tag);
+
+			StringBuilder members = new StringBuilder();
+			for(Map.Entry<GuildMember, GuildMemberInfo> entry : this.members.entrySet()) {
+				members.append(entry.getKey().playerUUID.toString()).append(":").append(entry.getValue().rank.refName).append(",");
+			}
+			String finalMembers = members.substring(0, members.length() - 1);
+
+			statement.setString(17, finalMembers);
+			statement.executeUpdate();
+		} catch(SQLException e) { e.printStackTrace(); }
 	}
 
 	public Map.Entry<GuildMember, GuildMemberInfo> getMember(Player player) {

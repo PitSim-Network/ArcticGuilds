@@ -5,6 +5,7 @@ import dev.kyro.arcticapi.data.APlayerData;
 import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.commands.admin.GuildAdminCommand;
 import dev.kyro.arcticguilds.commands.admin.ReputationCommand;
+import dev.kyro.arcticguilds.commands.admin.TestCommand;
 import dev.kyro.arcticguilds.commands.guildcommands.*;
 import dev.kyro.arcticguilds.controllers.*;
 import dev.kyro.arcticguilds.guildbuffs.*;
@@ -26,6 +27,8 @@ public class ArcticGuilds extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		INSTANCE = this;
+
+		ConnectionManager.initConnection();
 
 		loadConfig();
 		ArcticAPI.configInit(this, "prefix", "error-prefix");
@@ -72,6 +75,7 @@ public class ArcticGuilds extends JavaPlugin {
 
 		GuildAdminCommand adminCommand = new GuildAdminCommand("gadmin");
 		new ReputationCommand(adminCommand, "rep");
+		new TestCommand(adminCommand, "gtest");
 	}
 
 	private void registerListeners() {

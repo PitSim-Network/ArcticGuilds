@@ -4,10 +4,9 @@ import dev.kyro.arcticapi.data.AData;
 import dev.kyro.arcticapi.data.APlayer;
 import dev.kyro.arcticapi.data.APlayerData;
 import dev.kyro.arcticguilds.ArcticGuilds;
-import dev.kyro.arcticguilds.controllers.objects.Guild;
-import dev.kyro.arcticguilds.controllers.objects.GuildMember;
-import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
+import dev.kyro.arcticguilds.controllers.objects.*;
 import dev.kyro.arcticguilds.events.GuildReputationEvent;
+import dev.kyro.arcticguilds.guildupgrades.GuildBuffs;
 import dev.kyro.arcticguilds.inventories.BuffPanel;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -16,6 +15,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,18 +32,57 @@ public class GuildManager implements Listener {
 	static {
 		guildFile = new AData("guilds", "", false);
 
-		for(Map.Entry<UUID, APlayer> entry : APlayerData.getAllData().entrySet()) {
-			UUID uuid = entry.getKey();
-			APlayer aPlayer = entry.getValue();
+//		for(Map.Entry<UUID, APlayer> entry : APlayerData.getAllData().entrySet()) {
+//			UUID uuid = entry.getKey();
+//			APlayer aPlayer = entry.getValue();
+//
+//			GuildMember guildMember = new GuildMember(uuid, aPlayer.playerData);
+//			guildMemberList.add(guildMember);
+//		}
 
-			GuildMember guildMember = new GuildMember(uuid, aPlayer.playerData);
-			guildMemberList.add(guildMember);
-		}
+		String query = "SELECT * FROM GUILD_DATA";
+		try(PreparedStatement statement = ConnectionManager.connection.prepareStatement(query)) {
+			ResultSet rs = statement.executeQuery();
 
-		for(String key : guildFile.getConfiguration().getKeys(false)) {
-			ConfigurationSection guildData = guildFile.getConfiguration().getConfigurationSection(key);
-			new Guild(key, guildData);
-		}
+			while(rs.next()) {
+				int size = 8;
+				size += BuffManager.buffList.size();
+				size += UpgradeManager.upgradeList.size();
+				Object[] data = new Object[size];
+
+				String UUID = rs.getString("UUID");
+				data[0] = rs.getLong("created");
+				data[1] = rs.getString("name");
+				data[2] = rs.getString("owner");
+				data[3] = rs.getLong("balance");
+				data[4] = rs.getInt("reputation");
+				data[5] = rs.getString("tag");
+				data[6] = rs.getInt("banner");
+
+				int i = 7;
+				for(GuildBuff guildBuff : BuffManager.buffList) {
+					data[i] = rs.getInt("buffs_" +guildBuff.refName);
+					i++;
+				}
+
+				for(GuildUpgrade guildUpgrade : UpgradeManager.upgradeList) {
+					data[i] = rs.getInt("upgrades_" + guildUpgrade.refName);
+					i++;
+				}
+
+				data[i] = rs.getString("members");
+
+				new Guild(UUID, data);
+			}
+
+		} catch(SQLException e) { e.printStackTrace(); }
+
+
+
+//		for(String key : guildFile.getConfiguration().getKeys(false)) {
+//			ConfigurationSection guildData = guildFile.getConfiguration().getConfigurationSection(key);
+//			new Guild(key, guildData);
+//		}
 
 		new BukkitRunnable() {
 			@Override
@@ -135,4 +176,5 @@ public class GuildManager implements Listener {
 		}
 		return -1;
 	}
+
 }
