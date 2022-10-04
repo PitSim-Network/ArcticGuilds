@@ -93,7 +93,7 @@ public class TransferCommand extends ACommand {
 				guild.broadcast("&a&lGUILD! &7Guild ownership has been transferred to " + target.getName());
 			}
 		};
-		ALoreBuilder yesLore = new ALoreBuilder("&7Clicking here will transfer", "&7your guild to" + target.getName());
+		ALoreBuilder yesLore = new ALoreBuilder("&7Clicking here will transfer", "&7your guild to " + target.getName());
 		ALoreBuilder noLore = new ALoreBuilder("&7Click to cancel");
 		new ConfirmationGUI(player, transfer, yesLore, noLore).open();
 	}
