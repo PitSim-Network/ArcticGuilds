@@ -70,6 +70,10 @@ public class DemoteCommand extends ACommand {
 				return;
 			}
 		}
+		if(PermissionManager.isAdmin(player) && guildTarget.getValue().rank == GuildRank.OWNER) {
+			AOutput.error(player, "You cannot demote a owner of a guild");
+			return;
+		}
 
 		if(guildTarget.getValue().rank == GuildRank.RECRUIT) {
 			AOutput.error(player, "That player cannot be demote any lower");
