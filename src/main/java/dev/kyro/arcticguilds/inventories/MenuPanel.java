@@ -12,7 +12,6 @@ import dev.kyro.arcticguilds.controllers.objects.GuildMember;
 import dev.kyro.arcticguilds.controllers.objects.GuildMemberInfo;
 import dev.kyro.arcticguilds.misc.ColorConverter;
 import dev.kyro.arcticguilds.misc.Constants;
-import dev.kyro.arcticguilds.misc.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -53,21 +52,21 @@ public class MenuPanel extends AGUIPanel {
 				.getItemStack();
 		getInventory().setItem(13, upgrades);
 
-		ItemStack shop = new AItemStackBuilder(Material.DOUBLE_PLANT)
-				.setName("&e&lGuild Shop")
-				.setLore(new ALoreBuilder(
-
-				))
-				.getItemStack();
-		getInventory().setItem(14, shop);
-
-		ItemStack settings = new AItemStackBuilder(Material.REDSTONE_COMPARATOR)
-				.setName("&f&lGuild Settings")
-				.setLore(new ALoreBuilder(
-
-				))
-				.getItemStack();
-		getInventory().setItem(15, settings);
+//		ItemStack shop = new AItemStackBuilder(Material.DOUBLE_PLANT)
+//				.setName("&e&lGuild Shop")
+//				.setLore(new ALoreBuilder(
+//
+//				))
+//				.getItemStack();
+//		getInventory().setItem(14, shop);
+//
+//		ItemStack settings = new AItemStackBuilder(Material.REDSTONE_COMPARATOR)
+//				.setName("&f&lGuild Settings")
+//				.setLore(new ALoreBuilder(
+//
+//				))
+//				.getItemStack();
+//		getInventory().setItem(15, settings);
 
 		setInventory();
 	}
@@ -101,12 +100,12 @@ public class MenuPanel extends AGUIPanel {
 			openPanel(menuGUI.upgradePanel);
 		} else if(slot == 14) {
 //			openPanel(menuGUI.shopPanel);
-			Sounds.NO.play(player);
-			AOutput.error(player, "This feature is still being developed");
+//			Sounds.NO.play(player);
+//			AOutput.error(player, "This feature is still being developed");
 		} else if(slot == 15) {
 //			openPanel(menuGUI.settingsPanel);
-			Sounds.NO.play(player);
-			AOutput.error(player, "This feature is still being developed");
+//			Sounds.NO.play(player);
+//			AOutput.error(player, "This feature is still being developed");
 		}
 	}
 
