@@ -22,7 +22,6 @@ dependencies {
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 //    compile 'com.github.ArcticDevelopment:ArcticAPI:430e44f16f'
     compile files('libs/ArcticAPI-1.0.0.jar')
-    compile 'com.zaxxer:HikariCP:4.0.3'
 }
 
 shadowJar {
