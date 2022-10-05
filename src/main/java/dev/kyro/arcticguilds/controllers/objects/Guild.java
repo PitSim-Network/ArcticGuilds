@@ -103,7 +103,7 @@ public class Guild {
 				String[] memberData = member.split(":");
 				GuildMember guildMember = GuildManager.getMember(UUID.fromString(memberData[0]));
 				guildMember.setGuildUUID(uuid);
-				this.members.put(guildMember, new GuildMemberInfo(GuildRank.getRank(memberData[1])));
+				this.members.put(guildMember, new GuildMemberInfo(GuildRank.valueOf(memberData[1])));
 			}
 		}
 
