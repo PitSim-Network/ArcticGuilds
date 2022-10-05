@@ -13,6 +13,7 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://jitpack.io' }
+    maven { url "https://repo.codemc.org/repository/nms" }
 }
 
 dependencies {
