@@ -66,7 +66,8 @@ public class GuildMember {
 
 	public static long MODIFY_TIME = 1000 * 60 * 60 * 1 * 1;
 	public boolean wasModifiedRecently() {
-		return new Date().getTime() - lastModify.getTime() < MODIFY_TIME;
+		return false;
+//		return new Date().getTime() - lastModify.getTime() < MODIFY_TIME;
 	}
 	public String getModifiedTimeRemaining() {
 		DecimalFormat decimalFormat = new DecimalFormat("0.0");
