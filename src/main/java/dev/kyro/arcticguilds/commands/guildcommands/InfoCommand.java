@@ -1,5 +1,6 @@
 package dev.kyro.arcticguilds.commands.guildcommands;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import dev.kyro.arcticapi.builders.AMessageBuilder;
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
@@ -84,7 +85,8 @@ public class InfoCommand extends ACommand {
 //			onlinePlayers.add(entry.getKey().playerUUID);
 //			if(true) continue;
 			Player onlinePlayer = Bukkit.getPlayer(entry.getKey().playerUUID);
-			if(onlinePlayer != null) onlinePlayers.add(entry.getKey().playerUUID);
+			if(onlinePlayer == null || VanishAPI.isInvisible(onlinePlayer)) continue;
+			onlinePlayers.add(entry.getKey().playerUUID);
 		}
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

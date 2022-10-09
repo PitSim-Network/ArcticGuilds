@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
     compileOnly "com.github.MilkBowl:VaultAPI:1.7"
+    compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.7.11-2'
 //    compile 'com.github.ArcticDevelopment:ArcticAPI:430e44f16f'
     compile files('libs/ArcticAPI-1.0.0.jar')
 }
