@@ -1,5 +1,6 @@
 package dev.kyro.arcticguilds.commands.guildcommands;
 
+import de.myzelyam.api.vanish.VanishAPI;
 import dev.kyro.arcticapi.commands.ACommand;
 import dev.kyro.arcticapi.commands.AMultiCommand;
 import dev.kyro.arcticapi.misc.AOutput;
@@ -55,6 +56,7 @@ public class InviteCommand extends ACommand {
 		Player target = null;
 		for(Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 			if(!onlinePlayer.getName().equalsIgnoreCase(args.get(0))) continue;
+			if(VanishAPI.isInvisible(onlinePlayer)) continue;
 			target = onlinePlayer;
 			break;
 		}
