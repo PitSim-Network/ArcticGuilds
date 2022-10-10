@@ -1,25 +1,17 @@
 package dev.kyro.arcticguilds.events;
 
 import dev.kyro.arcticguilds.controllers.objects.Guild;
-import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuildReputationEvent extends GuildEvent {
-	private Player player;
 	private int amount;
 	private List<Double> multipliers = new ArrayList<>();
 
-	public GuildReputationEvent(Guild guild, @Nullable Player player, int amount) {
+	public GuildReputationEvent(Guild guild, int amount) {
 		super(guild);
-		this.player = player;
 		this.amount = amount;
-	}
-
-	public Player getPlayer() {
-		return player;
 	}
 
 	public int getAmount() {
