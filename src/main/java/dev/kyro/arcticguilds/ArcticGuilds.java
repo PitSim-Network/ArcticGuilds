@@ -26,6 +26,7 @@ public class ArcticGuilds extends JavaPlugin {
 		ArcticAPI.configInit(this, "prefix", "error-prefix");
 		APlayerData.init();
 
+		getServer().getPluginManager().registerEvents(new ProxyMessaging(), this);
 
 		QueryMessenger messenger = PluginQuery.getMessenger();
 		messenger.getEventBus().registerListener(new PluginMessageManager());
