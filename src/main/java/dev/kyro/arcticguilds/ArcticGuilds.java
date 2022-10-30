@@ -3,6 +3,7 @@ package dev.kyro.arcticguilds;
 import dev.kyro.arcticapi.ArcticAPI;
 import dev.kyro.arcticapi.data.APlayerData;
 import dev.kyro.arcticapi.misc.AOutput;
+import dev.kyro.arcticguilds.guildbuffs.*;
 import dev.kyro.arcticguilds.misc.PluginMessageManager;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -27,6 +28,12 @@ public class ArcticGuilds extends JavaPlugin {
 		APlayerData.init();
 
 		getServer().getPluginManager().registerEvents(new ProxyMessaging(), this);
+
+		BuffManager.registerBuff(new DamageBuff());
+		BuffManager.registerBuff(new DefenceBuff());
+		BuffManager.registerBuff(new XPBuff());
+		BuffManager.registerBuff(new GoldBuff());
+		BuffManager.registerBuff(new RenownBuff());
 
 		QueryMessenger messenger = PluginQuery.getMessenger();
 		messenger.getEventBus().registerListener(new PluginMessageManager());
