@@ -50,6 +50,10 @@ public class PreparedPanel extends AGUIPanel {
 		message.writeString(DummyItemStack.fromItemStack(inventoryClickEvent.getCurrentItem()).toString());
 
 		message.send();
+
+		if(inventoryClickEvent.getClickedInventory().getName().contains("Confirmation GUI")) {
+			inventoryClickEvent.getWhoClicked().closeInventory();
+		}
 	}
 
 	@Override

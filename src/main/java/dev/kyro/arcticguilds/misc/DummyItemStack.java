@@ -93,7 +93,7 @@ public class DummyItemStack {
 
 		itemStack.setAmount(1);
 		ItemMeta meta = itemStack.getItemMeta();
-		if(displayName != null) meta.setDisplayName(displayName);
+		if(displayName != null && !displayName.equals("null")) meta.setDisplayName(displayName);
 		if(lore != null && lore.size() > 0) meta.setLore(lore);
 
 		for(String modifier : modifiers) {

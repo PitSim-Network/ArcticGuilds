@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.UUID;
@@ -101,18 +102,46 @@ public class ProxyMessaging implements Listener {
 
 			}
 		}
+
+		if(strings.size() >= 2 && strings.get(0).equals("DEPOSIT")) {
+			UUID uuid = UUID.fromString(strings.get(1));
+			Player player = Bukkit.getPlayer(uuid);
+			if(player == null) return;
+
+			int toRemove = ints.get(0);
+			boolean success = false;
+
+			double currentBalance = ArcticGuilds.VAULT.getBalance(player);
+			if(currentBalance >= toRemove) {
+				success = true;
+
+				new BukkitRunnable() {
+					@Override
+					public void run() {
+						ArcticGuilds.VAULT.withdrawPlayer(player, toRemove);
+					}
+				}.runTask(ArcticGuilds.INSTANCE);
+
+			}
+
+			PluginMessage response = new PluginMessage().writeString("DEPOSIT").writeString(player.getUniqueId().toString()).writeBoolean(success);
+			response.send();
+		}
 	}
 
 
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onWithdrawal(GuildWithdrawalEvent event) {
-		Player player = event.getPlayer();
-		int amount = event.getAmount();
 
-		PluginMessage message = new PluginMessage();
-		message.writeString("WITHDRAW");
-		message.writeString(player.getUniqueId().toString());
-		message.writeBoolean(!event.isCancelled());
+		boolean success = !event.isCancelled();
+
+		PluginMessage response = new PluginMessage().writeString("WITHDRAW").writeString(event.getPlayer().getUniqueId().toString()).writeBoolean(success);
+		response.send();
+
+		if(!event.isCancelled()) {
+			int amount = event.getAmount();
+			ArcticGuilds.VAULT.depositPlayer(event.getPlayer(), amount);
+		}
 	}
 }

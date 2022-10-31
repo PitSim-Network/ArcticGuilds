@@ -10,11 +10,13 @@ public class GuildWithdrawalEvent extends Event implements Cancellable {
 	private boolean isCancelled;
 	private Player player;
 	private int amount;
+	private boolean isSoftCanceled;
 
 	public GuildWithdrawalEvent(Player player, int amount) {
 		this.isCancelled = false;
 		this.player = player;
 		this.amount = amount;
+		this.isSoftCanceled = false;
 	}
 
 	@Override
@@ -46,6 +48,14 @@ public class GuildWithdrawalEvent extends Event implements Cancellable {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	public boolean isSoftCanceled() {
+		return isSoftCanceled;
+	}
+
+	public void setSoftCanceled(boolean softCanceled) {
+		this.isSoftCanceled = softCanceled;
 	}
 
 

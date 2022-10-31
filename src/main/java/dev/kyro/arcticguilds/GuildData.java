@@ -1,5 +1,6 @@
 package dev.kyro.arcticguilds;
 
+import dev.kyro.arcticguilds.misc.PluginMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -30,7 +31,11 @@ public class GuildData {
 	}
 
 	public void addReputation(int reputation) {
+		PluginMessage message = new PluginMessage().writeString("ADD REPUTATION");
+		message.writeString(guildUUID.toString());
+		message.writeInt(reputation);
 
+		message.send();
 	}
 
 	public void update() {

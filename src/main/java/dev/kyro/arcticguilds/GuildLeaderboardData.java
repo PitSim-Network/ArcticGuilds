@@ -24,10 +24,6 @@ public class GuildLeaderboardData {
 		guildData.add(this);
 	}
 
-	public void addReputation(int reputation) {
-
-	}
-
 	public void update() {
 
 	}
