@@ -8,16 +8,16 @@ import java.util.*;
 
 public class GuildData {
 
-	private static final Map<Player, GuildData> guildData = new HashMap<>();
+	private static final Map<UUID, GuildData> guildData = new HashMap<>();
 
 	private final Map<GuildBuff, Integer> buffLevels = new HashMap<>();
+	public final UUID playerUUID;
 	private final UUID guildUUID;
 	private final String tag;
-	private final Player player;
 	private final ChatColor color;
 
-	public GuildData(Player player, List<String> stringData, List<Integer> intData) {
-		this.player = player;
+	public GuildData(UUID player, List<String> stringData, List<Integer> intData) {
+		this.playerUUID = player;
 		this.guildUUID = UUID.fromString(stringData.get(0));
 		this.tag = stringData.get(1);
 		this.color = ChatColor.valueOf(stringData.get(2));
@@ -31,6 +31,7 @@ public class GuildData {
 	}
 
 	public void addReputation(int reputation) {
+
 		PluginMessage message = new PluginMessage().writeString("ADD REPUTATION");
 		message.writeString(guildUUID.toString());
 		message.writeInt(reputation);
@@ -59,8 +60,13 @@ public class GuildData {
 	}
 
 	public static GuildData getGuildData(Player player) {
-		if(!guildData.containsKey(player)) return null;
-		return guildData.get(player);
+		if(!guildData.containsKey(player.getUniqueId())) return null;
+		return guildData.get(player.getUniqueId());
+	}
+
+	public static GuildData getGuildData(UUID uuid) {
+		if(!guildData.containsKey(uuid)) return null;
+		return guildData.get(uuid);
 	}
 
 

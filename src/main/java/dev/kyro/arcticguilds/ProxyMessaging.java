@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ProxyMessaging implements Listener {
@@ -23,8 +24,6 @@ public class ProxyMessaging implements Listener {
 		List<Integer> ints = message.getIntegers();
 
 		if(strings.size() >= 3 && strings.get(0).equals("OPEN INVENTORY")) {
-
-//			System.out.println(strings);
 
 			strings.remove(0);
 
@@ -57,15 +56,13 @@ public class ProxyMessaging implements Listener {
 			Bukkit.getPluginManager().callEvent(withdrawalEvent);
 		}
 
-		if(strings.size() >= 1 && ints.size() >= 4 && strings.get(0).equals("GUILD DATA")) {
+		if(strings.size() >= 1 && strings.get(0).equals("GUILD DATA")) {
 			strings.remove(0);
 
 			UUID uuid = UUID.fromString(strings.get(0));
 			strings.remove(0);
-			Player player = Bukkit.getPlayer(uuid);
-			if(player == null) return;
 
-			new GuildData(player, strings, ints);
+			new GuildData(uuid, strings, ints);
 
 		}
 
