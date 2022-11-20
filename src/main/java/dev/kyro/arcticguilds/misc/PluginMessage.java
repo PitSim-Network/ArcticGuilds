@@ -10,6 +10,7 @@ public class PluginMessage {
 
     private final List<String> strings = new ArrayList<>();
     private final List<Integer> integers = new ArrayList<>();
+    private final List<Long> longs = new ArrayList<>();
     private final List<Boolean> booleans = new ArrayList<>();
 
     public UUID messageID;
@@ -21,11 +22,11 @@ public class PluginMessage {
 
         messageID = UUID.fromString(data.readUTF());
         responseID = UUID.fromString(data.readUTF());
-
         originServer = data.readUTF();
 
         int stringCount = data.readInt();
         int integerCount = data.readInt();
+        int longCount = data.readInt();
         int booleanCount = data.readInt();
 
         for(int i = 0; i < stringCount; i++) {
@@ -36,17 +37,19 @@ public class PluginMessage {
             integers.add(data.readInt());
         }
 
+        for(int i = 0; i < longCount; i++) {
+            longs.add(data.readLong());
+        }
+
         for(int i = 0; i < booleanCount; i++) {
             booleans.add(data.readBoolean());
         }
-
     }
 
     public PluginMessage() {
         messageID  = UUID.randomUUID();
         responseID = UUID.randomUUID();
     }
-
 
     public PluginMessage writeString(String string) {
         strings.add(string);
@@ -55,6 +58,11 @@ public class PluginMessage {
 
     public PluginMessage writeInt(int integer) {
         integers.add(integer);
+        return this;
+    }
+
+    public PluginMessage writeLong(long longValue) {
+        longs.add(longValue);
         return this;
     }
 
@@ -74,6 +82,10 @@ public class PluginMessage {
 
     public List<Integer> getIntegers() {
         return integers;
+    }
+
+    public List<Long> getLongs() {
+        return longs;
     }
 
     public List<Boolean> getBooleans() {
