@@ -57,7 +57,7 @@ public class PluginMessageManager implements QueryMessageListener {
             exception.printStackTrace();
         }
 
-        out.writeShort(msgbytes.toByteArray().length);
+        out.writeInt(msgbytes.toByteArray().length);
         out.write(msgbytes.toByteArray());
 
         if (!messenger.broadcastQuery("BungeeCord", out.toByteArray())) {
@@ -83,7 +83,7 @@ public class PluginMessageManager implements QueryMessageListener {
 
             if(!subChannel.equals("PitSim")) return;
 
-            short len = in.readShort();
+            int len = in.readInt();
             byte[] msgbytes = new byte[len];
             in.readFully(msgbytes);
             DataInputStream subDIS = new DataInputStream(new ByteArrayInputStream(msgbytes));
