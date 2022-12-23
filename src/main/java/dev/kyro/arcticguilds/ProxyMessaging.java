@@ -39,8 +39,13 @@ public class ProxyMessaging implements Listener {
 
 			player.closeInventory();
 
-			PreparedGUI gui = new PreparedGUI(player, inventoryName, rows, strings);
-			gui.open();
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					PreparedGUI gui = new PreparedGUI(player, inventoryName, rows, strings);
+					gui.open();
+				}
+			}.runTask(ArcticGuilds.INSTANCE);
 		}
 
 		if(strings.size() >= 1 && ints.size() >= 1 && strings.get(0).equals("WITHDRAW")) {
@@ -137,8 +142,13 @@ public class ProxyMessaging implements Listener {
 		response.send();
 
 		if(!event.isCancelled()) {
-			int amount = event.getAmount();
-			ArcticGuilds.VAULT.depositPlayer(event.getPlayer(), amount);
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					int amount = event.getAmount();
+					ArcticGuilds.VAULT.depositPlayer(event.getPlayer(), amount);
+				}
+			}.runTask(ArcticGuilds.INSTANCE);
 		}
 	}
 }
