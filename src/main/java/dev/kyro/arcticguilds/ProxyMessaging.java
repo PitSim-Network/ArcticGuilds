@@ -4,6 +4,7 @@ import dev.kyro.arcticguilds.events.GuildWithdrawalEvent;
 import dev.kyro.arcticguilds.misc.MessageEvent;
 import dev.kyro.arcticguilds.misc.PluginMessage;
 import dev.kyro.arcticguilds.misc.Sounds;
+import javafx.scene.shape.Arc;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,11 +38,10 @@ public class ProxyMessaging implements Listener {
 			int rows = ints.get(0);
 			ints.remove(0);
 
-			player.closeInventory();
-
 			new BukkitRunnable() {
 				@Override
 				public void run() {
+					player.closeInventory();
 					PreparedGUI gui = new PreparedGUI(player, inventoryName, rows, strings);
 					gui.open();
 				}
