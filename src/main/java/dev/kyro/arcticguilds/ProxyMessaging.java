@@ -105,50 +105,5 @@ public class ProxyMessaging implements Listener {
 			}
 		}
 
-		if(strings.size() >= 2 && strings.get(0).equals("DEPOSIT")) {
-			UUID uuid = UUID.fromString(strings.get(1));
-			Player player = Bukkit.getPlayer(uuid);
-			if(player == null) return;
-
-			int toRemove = ints.get(0);
-			boolean success = false;
-
-			double currentBalance = ArcticGuilds.VAULT.getBalance(player);
-			if(currentBalance >= toRemove) {
-				success = true;
-
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						ArcticGuilds.VAULT.withdrawPlayer(player, toRemove);
-					}
-				}.runTask(ArcticGuilds.INSTANCE);
-
-			}
-
-			PluginMessage response = new PluginMessage().writeString("DEPOSIT").writeString(player.getUniqueId().toString()).writeBoolean(success);
-			response.send();
-		}
-	}
-
-
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onWithdrawal(GuildWithdrawalEvent event) {
-
-		boolean success = !event.isCancelled();
-
-		PluginMessage response = new PluginMessage().writeString("WITHDRAW").writeString(event.getPlayer().getUniqueId().toString()).writeBoolean(success);
-		response.send();
-
-		if(!event.isCancelled()) {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					int amount = event.getAmount();
-					ArcticGuilds.VAULT.depositPlayer(event.getPlayer(), amount);
-				}
-			}.runTask(ArcticGuilds.INSTANCE);
-		}
 	}
 }

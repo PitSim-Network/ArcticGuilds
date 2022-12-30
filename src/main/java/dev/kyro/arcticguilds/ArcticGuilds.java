@@ -15,7 +15,6 @@ import java.text.DecimalFormat;
 
 public class ArcticGuilds extends JavaPlugin {
 	public static ArcticGuilds INSTANCE;
-	public static Economy VAULT = null;
 
 	public static DecimalFormat decimalFormat = new DecimalFormat("#,##0");
 
@@ -37,12 +36,6 @@ public class ArcticGuilds extends JavaPlugin {
 
 		QueryMessenger messenger = PluginQuery.getMessenger();
 		messenger.getEventBus().registerListener(new PluginMessageManager());
-
-		if(!setupEconomy()) {
-			AOutput.log(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
 	}
 
 	@Override
@@ -56,15 +49,4 @@ public class ArcticGuilds extends JavaPlugin {
 		saveConfig();
 	}
 
-	private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			return false;
-		}
-		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
-			return false;
-		}
-		VAULT = rsp.getProvider();
-		return VAULT != null;
-	}
 }
