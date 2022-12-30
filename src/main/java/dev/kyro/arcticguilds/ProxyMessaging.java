@@ -63,7 +63,6 @@ public class ProxyMessaging implements Listener {
 			strings.remove(0);
 
 			new GuildData(uuid, strings, ints);
-
 		}
 
 		if(strings.size() >= 1 && ints.size() >= 3 && strings.get(0).equals("GUILD LEADERBOARD DATA")) {
@@ -99,6 +98,5 @@ public class ProxyMessaging implements Listener {
 
 			}
 		}
-
 	}
 }
