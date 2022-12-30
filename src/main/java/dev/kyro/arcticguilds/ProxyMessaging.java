@@ -4,16 +4,13 @@ import dev.kyro.arcticguilds.events.GuildWithdrawalEvent;
 import dev.kyro.arcticguilds.misc.MessageEvent;
 import dev.kyro.arcticguilds.misc.PluginMessage;
 import dev.kyro.arcticguilds.misc.Sounds;
-import javafx.scene.shape.Arc;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class ProxyMessaging implements Listener {
@@ -49,9 +46,7 @@ public class ProxyMessaging implements Listener {
 		}
 
 		if(strings.size() >= 1 && ints.size() >= 1 && strings.get(0).equals("WITHDRAW")) {
-
 			UUID uuid = UUID.fromString(strings.get(1));
-			strings.remove(0);
 			Player player = Bukkit.getPlayer(uuid);
 			if(player == null) return;
 
