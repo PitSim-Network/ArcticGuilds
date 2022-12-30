@@ -2,21 +2,14 @@ package dev.kyro.arcticguilds;
 
 import dev.kyro.arcticapi.ArcticAPI;
 import dev.kyro.arcticapi.data.APlayerData;
-import dev.kyro.arcticapi.misc.AOutput;
 import dev.kyro.arcticguilds.guildbuffs.*;
 import dev.kyro.arcticguilds.misc.PluginMessageManager;
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import septogeddon.pluginquery.PluginQuery;
 import septogeddon.pluginquery.api.QueryMessenger;
 
-import java.text.DecimalFormat;
-
 public class ArcticGuilds extends JavaPlugin {
 	public static ArcticGuilds INSTANCE;
-
-	public static DecimalFormat decimalFormat = new DecimalFormat("#,##0");
 
 	@Override
 	public void onEnable() {
@@ -42,11 +35,8 @@ public class ArcticGuilds extends JavaPlugin {
 	public void onDisable() {
 	}
 
-
 	private void loadConfig() {
-
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
-
 }

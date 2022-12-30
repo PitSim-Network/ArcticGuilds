@@ -7,7 +7,6 @@ depend:
   - Vault
   - PlaceholderAPI
 #  - ProtocolLib
-  - Essentials
 commands:
   guild:
     description: Main guild command

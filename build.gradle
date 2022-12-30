@@ -19,9 +19,9 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:22.0.0'
     compileOnly 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
-    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
     compileOnly 'com.github.LeonMangler:PremiumVanishAPI:2.7.11-2'
     compile 'com.github.ArcticDevelopment:ArcticAPI:2a704a71cd'
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7"
 //    compile files('libs/ArcticAPI-1.0.0.jar')
     compileOnly files('libs/PluginQuery.jar')
 }
