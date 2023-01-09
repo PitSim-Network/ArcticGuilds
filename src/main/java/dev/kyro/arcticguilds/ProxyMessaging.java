@@ -38,7 +38,7 @@ public class ProxyMessaging implements Listener {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					player.closeInventory();
+//					player.closeInventory();
 					PreparedGUI gui = new PreparedGUI(player, inventoryName, rows, strings);
 					gui.open();
 				}
