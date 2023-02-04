@@ -47,7 +47,9 @@ public class PreparedPanel extends AGUIPanel {
 		message.writeString(inventoryClickEvent.getWhoClicked().getUniqueId().toString());
 		message.writeString(inventoryClickEvent.getInventory().getName());
 		message.writeInt(inventoryClickEvent.getSlot());
-		message.writeString(DummyItemStack.fromItemStack(inventoryClickEvent.getCurrentItem()).toString());
+		DummyItemStack dummyItemStack = DummyItemStack.fromItemStack(inventoryClickEvent.getCurrentItem());
+		if(dummyItemStack == null) return;
+		message.writeString(dummyItemStack.toString());
 
 		message.send();
 

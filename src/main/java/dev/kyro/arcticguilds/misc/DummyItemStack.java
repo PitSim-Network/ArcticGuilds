@@ -130,6 +130,7 @@ public class DummyItemStack {
 	}
 
 	public static DummyItemStack fromItemStack(ItemStack itemStack) {
+		if(Misc.isAirOrNull(itemStack)) return null;
 		DummyItemStack dummyItemStack = new DummyItemStack(itemStack.getType().name(), itemStack.getAmount(), itemStack.getDurability());
 		ItemMeta meta = itemStack.getItemMeta();
 		if(meta.hasDisplayName()) dummyItemStack.setDisplayName(meta.getDisplayName());
