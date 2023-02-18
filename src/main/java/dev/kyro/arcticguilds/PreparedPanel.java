@@ -3,6 +3,7 @@ package dev.kyro.arcticguilds;
 import dev.kyro.arcticapi.gui.AGUI;
 import dev.kyro.arcticapi.gui.AGUIPanel;
 import dev.kyro.arcticguilds.misc.DummyItemStack;
+import dev.kyro.arcticguilds.misc.Misc;
 import dev.kyro.arcticguilds.misc.PluginMessage;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -47,6 +48,7 @@ public class PreparedPanel extends AGUIPanel {
 		message.writeString(inventoryClickEvent.getWhoClicked().getUniqueId().toString());
 		message.writeString(inventoryClickEvent.getInventory().getName());
 		message.writeInt(inventoryClickEvent.getSlot());
+		if(Misc.isAirOrNull(inventoryClickEvent.getCurrentItem())) return;
 		DummyItemStack dummyItemStack = DummyItemStack.fromItemStack(inventoryClickEvent.getCurrentItem());
 		if(dummyItemStack == null) return;
 		message.writeString(dummyItemStack.toString());
