@@ -62,7 +62,7 @@ public class ProxyMessaging implements Listener {
 			UUID uuid = UUID.fromString(strings.get(0));
 			strings.remove(0);
 
-			new GuildData(uuid, strings, ints);
+			new GuildMember(uuid, strings, ints);
 		}
 
 		if(strings.size() >= 1 && ints.size() >= 3 && strings.get(0).equals("GUILD LEADERBOARD DATA")) {
