@@ -1,7 +1,7 @@
 name: ArcticGuilds
-author: Kyro
+author: Kyro, wiji
 version: 1.0.0
-main: dev.kyro.arcticguilds.ArcticGuilds
+main: net.pitsim.arcticguilds.ArcticGuilds
 description: Guild system
 depend:
   - Vault
